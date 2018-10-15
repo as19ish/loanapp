@@ -63,14 +63,14 @@ public class AdminDaoImp implements AdminDao {
 	
 	@Override
 	public List<Employee> getEmployees() {
-		String sql = "select  * from employee";
+		String sql = "select  employee_id as id,name,email,mobile,password,date,status,type from employee";
 		List<Employee> employees = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Employee>(Employee.class));
 		return employees;
 	}
 	@Override
     public boolean toggleStatus(int id) {
     	
-    	String query = "UPDATE employee SET status =CASE WHEN status = 'active' THEN 'inactive' ELSE 'active' END where id = ?";
+    	String query = "UPDATE employee SET status =CASE WHEN status = 'active' THEN 'inactive' ELSE 'active' END where employee_id = ?";
     	int row = jdbcTemplate.update(query, new Object[]{id});
 		if (row == 1) {
 			return true;

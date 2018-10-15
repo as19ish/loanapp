@@ -32,8 +32,8 @@ public class WebsiteNavigationController {
 	public String profile(ModelMap model) {
 		return "profile";
 	}
-	@RequestMapping(value = "/inner", method = RequestMethod.GET)
-	public String inner(ModelMap model) {
-		return "inner";
+	@RequestMapping(value = "/add-leads", method = RequestMethod.GET)
+	public String addLeads(ModelMap model) {
+		return "addlead";
 	}
 }

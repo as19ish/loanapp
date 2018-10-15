@@ -15,7 +15,9 @@
 								<h4 class="m-menu__section-text">Leads</h4>
 								<i class="m-menu__section-icon flaticon-more-v2"></i>
 							</li>
-							<li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/inner'}">m-menu__item--active</c:if>" aria-haspopup="true" m-menu-link-redirect="1"><a href="inner" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-graphic"></i><span class="m-menu__link-text">Upload leads</span></a></li>
+							<li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/upload-leads'}">m-menu__item--active</c:if>" aria-haspopup="true" m-menu-link-redirect="1"><a href="upload-leads" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-graphic"></i><span class="m-menu__link-text">Upload Leads</span></a></li>
 							<li class="m-menu__item  <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Leads List</span></a></li>
+		                    <li class="m-menu__item  <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/add-leads'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/add-leads" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Add Lead</span></a></li>
+						   				
 						</ul>
 </div>

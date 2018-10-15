@@ -25,7 +25,7 @@ public class Employee {
 	}
 
 	public void setEmail(String email) {
-		this.email = email.trim();
+		this.email = email;
 	}
 
 	public String getMobile() {
@@ -33,7 +33,7 @@ public class Employee {
 	}
 
 	public void setMobile(String mobile) {
-		this.mobile = mobile.trim();;
+		this.mobile = mobile;
 	}
 
 	public String getPassword() {
@@ -41,7 +41,7 @@ public class Employee {
 	}
 
 	public void setPassword(String password) {
-		this.password = password.trim();
+		this.password = password;
 	}
 
 	public String getName() {
@@ -49,7 +49,7 @@ public class Employee {
 	}
 
 	public void setName(String name) {
-		this.name = name.trim();
+		this.name = name;
 	}
 
 	public Date getDate() {

@@ -7,7 +7,7 @@
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
-		<title>PixelTechlab | Dashboard</title>
+		<title>Add New Employee</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
@@ -103,14 +103,39 @@
 				<div class="m-grid__item m-grid__item--fluid m-wrapper">
 
 					<!-- BEGIN: Subheader -->
-					     <%@ include file="/WEB-INF/layouts/subheader.jsp" %>
+					     <div class="m-subheader ">
+						<div class="d-flex align-items-center">
+							<div class="mr-auto">
+								<h3 class="m-subheader__title m-subheader__title--separator">Employee List</h3>
+								<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+									<li class="m-nav__item m-nav__item--home">
+										<a href="/" class="m-nav__link m-nav__link--icon">
+											<i class="m-nav__link-icon la la-home"></i>
+										</a>
+									</li>
+									<li class="m-nav__separator">-</li>
+									<li class="m-nav__item">
+										<a href="javascript:;" class="m-nav__link">
+											<span class="m-nav__link-text">Employee Portal</span>
+										</a>
+									</li>
+									<li class="m-nav__separator">-</li>
+									<li class="m-nav__item">
+										<a href="emplist" class="m-nav__link">
+											<span class="m-nav__link-text">Employee List</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+                 </div>
 					<!-- END: Subheader -->
 					<div class="m-content">
 						<!--Begin::Section-->
 						<div class="row">
 							<div class="col-xl-12">
 								<div class="m-portlet m-portlet--mobile  m-portlet--unair">
-									<div class="m-portlet__head">
+								<!-- 	<div class="m-portlet__head">
 										<div class="m-portlet__head-caption">
 											<div class="m-portlet__head-title">
 												<h3 class="m-portlet__head-text">
@@ -120,6 +145,7 @@
 										</div>
 										
 									</div>
+								 -->	
 									<div class="m-portlet__body">
 
 										<!--begin: Datatable -->
@@ -128,8 +154,11 @@
 									            <tr>
 									                <th>Id</th>
 									                <th>Name</th>
+									                <th>Email</th>
 									                <th>Mobile</th>
-									                <th>email</th>
+									                <th>Password</th>
+									                <th>Date</th>
+									                <th>Type</th>
 									                <th>Status</th>
 									                
 									            </tr>
@@ -139,8 +168,12 @@
 								                    <tr >
 								                        <td>${temp.id}</td>
 								                        <td>${temp.name}</td>
-								                        <td>${temp.mobile}</td>
 								                        <td>${temp.email}</td>
+								                        <td>${temp.mobile}</td>
+								                        <td>${temp.password}</td>
+								                        <td>${temp.date}</td>
+								                        <td>${temp.type}</td>
+								                        
 								                        <td><select class="selectpicker" data-mobile="false" data-rowId="${temp.id}" >
 															  <option >${temp.status}</option>
 															  <option >

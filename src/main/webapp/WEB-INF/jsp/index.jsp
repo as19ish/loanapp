@@ -107,7 +107,32 @@
 
 					<!-- BEGIN: Subheader -->
 					    
-					    <%@ include file="/WEB-INF/layouts/subheader.jsp" %>
+					    <div class="m-subheader ">
+						<div class="d-flex align-items-center">
+							<div class="mr-auto">
+								<h3 class="m-subheader__title m-subheader__title--separator">Leads List</h3>
+								<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+									<li class="m-nav__item m-nav__item--home">
+										<a href="/" class="m-nav__link m-nav__link--icon">
+											<i class="m-nav__link-icon la la-home"></i>
+										</a>
+									</li>
+									<li class="m-nav__separator">-</li>
+									<li class="m-nav__item">
+										<a href="jacascript:;" class="m-nav__link">
+											<span class="m-nav__link-text">Leads</span>
+										</a>
+									</li>
+									<li class="m-nav__separator">-</li>
+									<li class="m-nav__item">
+										<a href="/" class="m-nav__link">
+											<span class="m-nav__link-text">Leads List</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+</div>
 
 					<!-- END: Subheader -->
 					<div class="m-content">
@@ -115,54 +140,23 @@
 						<div class="row">
 							<div class="col-xl-12">
 								<div class="m-portlet m-portlet--mobile  m-portlet--unair">
-									<div class="m-portlet__head">
-										<div class="m-portlet__head-caption">
-											<div class="m-portlet__head-title">
-												<h3 class="m-portlet__head-text">
-													Leads List
-												</h3>
-											</div>
-										</div>
-										
-									</div>
+									
 									<div class="m-portlet__body">
 
 										<!--begin: Datatable -->
-										<table id="example" class="table table-striped table-bordered" style="width:100%">
-									        <thead>
-									            <tr>
-									                <th>Id</th>
-									                <th>Name</th>
-									                <th>Mobile</th>
-									                <th>email</th>
-									                <th>Status</th>
-									                
-									            </tr>
-									        </thead>
-									        <tbody>
-									            <c:forEach items="${emplist}" var="temp">
-								                    <tr>
-								                        <td>${temp.id}</td>
-								                        <td>${temp.name}</td>
-								                        <td>${temp.mobile}</td>
-								                        <td>${temp.email}</td>
-								                        <td>${temp.status}</td>
-								                        
-								                    </tr>
-								                </c:forEach>
-									            
-									        </tbody>
-									        <tfoot>
-									            <tr>
-									                <th>Id</th>
-									                <th>Name</th>
-									                <th>Mobile</th>
-									                <th>email</th>
-									                <th>Status</th>
-									            </tr>
-									        </tfoot>
-									    </table>
-
+									           <table id="paginatedTable" class="table table-striped">
+										            <thead>
+										                <tr>
+										                    <th>leadID</th>
+										                    <th>Name</th>
+										                    <th>Mobile</th>
+										                    <th>creationDate</th>
+										                    <th>lastUpdatedDate</th>
+										                    <th>status</th>
+										                    <th>employeeID<th>
+										                </tr>
+										            </thead>
+								    	        </table>
 										<!--end: Datatable -->
 									</div>
 								</div>

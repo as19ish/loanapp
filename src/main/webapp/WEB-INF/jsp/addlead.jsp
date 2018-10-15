@@ -4,7 +4,7 @@
 <!-- begin::Head -->
 <head>
 <meta charset="utf-8" />
-<title>Add New Employee</title>
+<title>Add New Lead</title>
 <meta name="description" content="User profile view and edit">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
@@ -133,10 +133,10 @@
 			<div class="m-grid__item m-grid__item--fluid m-wrapper">
 
 				<!-- BEGIN: Subheader -->
-				    <div class="m-subheader ">
+				   <div class="m-subheader ">
 						<div class="d-flex align-items-center">
 							<div class="mr-auto">
-								<h3 class="m-subheader__title m-subheader__title--separator">Add New Employee</h3>
+								<h3 class="m-subheader__title m-subheader__title--separator">Add New Lead</h3>
 								<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 									<li class="m-nav__item m-nav__item--home">
 										<a href="/" class="m-nav__link m-nav__link--icon">
@@ -145,14 +145,14 @@
 									</li>
 									<li class="m-nav__separator">-</li>
 									<li class="m-nav__item">
-										<a href="javascript:;" class="m-nav__link">
-											<span class="m-nav__link-text">Employee Portal</span>
+										<a href="" class="m-nav__link">
+											<span class="m-nav__link-text">Leads</span>
 										</a>
 									</li>
 									<li class="m-nav__separator">-</li>
 									<li class="m-nav__item">
-										<a href="addemployee" class="m-nav__link">
-											<span class="m-nav__link-text">Add New Employee</span>
+										<a href="" class="m-nav__link">
+											<span class="m-nav__link-text">Add Lead</span>
 										</a>
 									</li>
 								</ul>
@@ -166,23 +166,16 @@
 							<div class="m-portlet m-portlet--full-height   m-portlet--unair">
 								<div class="m-portlet__body">
 									
-									<form action="signup" method="post">
+									<form action="add-leads" method="post">
 										<font color="blue">${message}</font> <font color="blue">${error}</font>
 										<div class="form-group">
 											<label>Name<sup>*</sup></label> <input type="text"
-												class="form-control" name="name" required>
+												class="form-control" name="name" required >
 										</div>
-										<div class="form-group">
-											<label>Email<sup>*</sup></label> <input type="text"
-												class="form-control" name="email" required>
-										</div>
-										<div class="form-group">
-											<label>Password<sup>*</sup></label> <input type="password"
-												class="form-control" name="password" required>
-										</div>
+																				
 										<div class="form-group">
 											<label>Mobile<sup>*</sup></label> <input type="number"
-												class="form-control" name="mobile" required>
+												class="form-control" name="mobile" required >
 										</div>
 
 										<div class="m-portlet__foot m-portlet__foot--fit">
