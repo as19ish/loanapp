@@ -3,6 +3,9 @@ package com.pixel.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.pixel.bean.Employee;
@@ -10,6 +13,8 @@ import com.pixel.dao.AdminDao;
 
 @Component
 public class AdminServiceImp implements AdminService {
+	
+	
 	@Autowired
 	private AdminDao adminDoa;
 
@@ -46,5 +51,7 @@ public class AdminServiceImp implements AdminService {
 	public boolean toggleStatus(int id) {
 		return adminDoa.toggleStatus(id);
 	}
+	
+	
 
 }

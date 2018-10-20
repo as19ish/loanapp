@@ -10,6 +10,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.pixel.bean.Employee;
@@ -18,17 +19,19 @@ import com.pixel.bean.Employee;
 public class AdminDaoImp implements AdminDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
     
 	@Override
 	public boolean addEmployee(Employee employee) {
 		boolean isAdded = false;
-		String query = "INSERT INTO employee (name ,email,mobile,password,date,status)" + " VALUES (?, ?, ?, ?,?,?)";
+		String query = "INSERT INTO employee (name ,email,mobile,password,date,status,type)" + " VALUES (?, ?, ?, ?,?,?,?)";
 		// define query arguments
 		Object[] params = new Object[] { employee.getName(), employee.getEmail(), employee.getMobile(),
-				employee.getPassword(), employee.getDate(), employee.getStatus() };
+				passwordEncoder.encode(employee.getPassword()), employee.getDate(), employee.getStatus(),employee.getType() };
 		// define SQL types of the arguments
 		int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP,
-				Types.VARCHAR };
+				Types.VARCHAR,Types.VARCHAR };
 		int row = jdbcTemplate.update(query, params, types);
 		System.out.println(row + " row inserted.");
 		if (row == 1) {
@@ -40,11 +43,11 @@ public class AdminDaoImp implements AdminDao {
 	@Override
 	public Employee employeeByEmail(String email) throws EmptyResultDataAccessException {
 		Employee employee = null;
-		String query = "SELECT * FROM employee WHERE EMAIL = ?";
+		String query = "select  employee_id as id,name,email,mobile,password,date,status,type from employee WHERE EMAIL = ? limit 1";
 		try {
 			employee = jdbcTemplate.queryForObject(query, new Object[] { email }, new EmployeeRowMapper());
 		} catch (Exception e) {
-            //exception throws when email id does not exists
+            
 		}
 		return employee;
 	}

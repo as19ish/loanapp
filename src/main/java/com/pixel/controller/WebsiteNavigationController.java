@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pixel.service.AdminService;
+import com.pixel.util.AppUtil;
 
 @Controller
 public class WebsiteNavigationController {
@@ -15,8 +16,12 @@ public class WebsiteNavigationController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(ModelMap model) {
+		if(AppUtil.hasRole("admin")) {
 		model.addAttribute("emplist",adminService.getEmployees());
 		return "index";
+		}else {
+			return "redirect:/fetch-lead";
+		}
 	}
 
 	@RequestMapping(value = "/addemployee", method = RequestMethod.GET)

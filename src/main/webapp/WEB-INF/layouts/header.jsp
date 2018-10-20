@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 			<header id="m_header" class="m-grid__item    m-header " m-minimize-offset="200" m-minimize-mobile-offset="200">
 				<div class="m-container m-container--fluid m-container--full-height">
 					<div class="m-stack m-stack--ver m-stack--desktop">
@@ -184,7 +186,8 @@
 												</div>
 											</div>
 										</li>
-					
+										<sec:authentication var="principal" property="principal" />
+										<sec:authorize access="isAuthenticated()">
 										<li class="m-nav__item m-topbar__user-profile  m-dropdown m-dropdown--medium m-dropdown--arrow  m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
@@ -204,8 +207,8 @@
 																<img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless" alt="" />
 															</div>
 															<div class="m-card-user__details">
-																<span class="m-card-user__name m--font-weight-500">Mark Andre</span>
-																<a href="" class="m-card-user__email m--font-weight-300 m-link">mark.andre@gmail.com</a>
+																<span class="m-card-user__name m--font-weight-500">${principal.name}</span>
+																<a href="" class="m-card-user__email m--font-weight-300 m-link">${principal.username}</a>
 															</div>
 														</div>
 													</div>
@@ -233,7 +236,7 @@
 																	</a>
 																</li>
 																<li class="m-nav__item">
-																	<a href="snippets/pages/user/login-1.html" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</a>
+																	<a href="<c:url value='/logout' />" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</a>
 																</li>
 															</ul>
 														</div>
@@ -241,6 +244,7 @@
 												</div>
 											</div>
 										</li>
+										</sec:authorize>
 									</ul>
 								</div>
 							</div>

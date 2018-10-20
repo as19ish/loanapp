@@ -20,6 +20,19 @@ public class LeadServiceImp implements LeadService {
 		return leadDao.addLead(lead);
 	}
 
+
+	@Override
+	public Lead fetchLead(Long employee_id) {
+		
+		return leadDao.fetchLead(employee_id);
+	}
+	
+	@Override
+	public boolean changeStatus(Long employee_id,String status) {
+		return leadDao.changeStatus(employee_id,status);
+		
+	}
+
 	
 
 }
