@@ -68,7 +68,7 @@ public class AdminController {
 		DataTableRequest<Leads> dataTableInRQ = new DataTableRequest<Leads>(request);
 		PaginationCriteria pagination = dataTableInRQ.getPaginationRequest();
 		
-		String baseQuery = "SELECT * , (SELECT COUNT(1) FROM leads) as total_records FROM leads";
+		String baseQuery = "SELECT * , (SELECT COUNT(1) FROM leads) as total_records FROM leads ";
 		String paginatedQuery = AppUtil.buildPaginatedQuery(baseQuery, pagination);
 		
 		System.out.println(paginatedQuery);

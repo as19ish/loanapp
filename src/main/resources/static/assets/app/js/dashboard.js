@@ -17,7 +17,7 @@ $(document).ready(function() {
                     { "data": "creation_date", "name" : "CreationDate" , "title" : "CreationDate"},
                     { "data": "last_updated_date", "name" : "LastUpdatedDate" , "title" : "LastUpdatedDate"},
                     { "data": "status", "name" : "Status" , "title" : "Status"},
-                    { "data": "employee_id", "name" : "EmployeeID" , "title" : "EmployeeID"}
+                   
                 ]    
 	});
 	
