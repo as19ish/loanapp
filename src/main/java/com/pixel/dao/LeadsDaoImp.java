@@ -70,6 +70,19 @@ public class LeadsDaoImp implements LeadsDao {
 		
 	}
 
+	@Override
+	public boolean delete(Long id) {
+		
+		String query = "DELETE FROM leads WHERE lead_id = ?";
+		int row = jdbcTemplate.update(query, new Object[]{id});
+		if (row == 1) {
+			return true;
+		}
+		return false;
+		
+	}
+
+
 		
 	
 	private void setAssigned(Long lead_id,Long employee_id) {
@@ -104,6 +117,7 @@ public class LeadsDaoImp implements LeadsDao {
 			return lead;
 		}
 	}
+
 
 	
 

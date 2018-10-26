@@ -33,6 +33,12 @@ public class LeadServiceImp implements LeadService {
 		
 	}
 
+
+	@Override
+	public boolean delete(Long id) {
+		return leadDao.delete(id);
+	}
+
 	
 
 }

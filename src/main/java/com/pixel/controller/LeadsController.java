@@ -56,4 +56,10 @@ public class LeadsController {
 		AuthEmployee current_employee = (AuthEmployee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return leadService.changeStatus(current_employee.getEmployee_id(),status);
 	}
+	@RequestMapping(value = "/leads/delete/{id}",method=RequestMethod.GET)
+	@ResponseBody
+	public boolean deleteLead(@PathVariable("id") Long id){
+		
+		return leadService.delete(id);
+	}
 }

@@ -3,6 +3,8 @@ package com.pixel.excel;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
@@ -31,6 +33,11 @@ public class ExcelSheetToLoanLead implements ExcelSheetToLead {
 				continue;
 			}
 			
+			if(!isPhoneNumberValid(row.getMobile())){
+				rejectedLeads.add(new RejectedLeadRow(String.valueOf(row.getRowIndex()), "Mobile No Not Valid"));
+				continue;
+			}
+			
 			//boolean isDuplicate = true;
 			
 			/*if(isDuplicate){
@@ -48,4 +55,17 @@ public class ExcelSheetToLoanLead implements ExcelSheetToLead {
 		container.setRejectedLeads(rejectedLeads);
 		return container;
 	}
+	public boolean isPhoneNumberValid(String phoneNumber){
+	     boolean isValid = false;
+
+	     //Initialize reg ex for phone number.
+	    String expression = "^((\\+|00)(\\d{1,3})[\\s-]?)?(\\d{10})$";
+	    CharSequence inputStr = phoneNumber;
+	    Pattern pattern = Pattern.compile(expression);
+	    Matcher matcher = pattern.matcher(inputStr);
+	    if(matcher.matches()){
+	        isValid = true;
+	     }
+	        return isValid;
+	    }
 }

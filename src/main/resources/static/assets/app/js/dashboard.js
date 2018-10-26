@@ -1,27 +1,7 @@
 $(document).ready(function() {
     $('#example').DataTable();
     $('.selectpicker').selectpicker();
-    $('#paginatedTable').DataTable( {
-        "processing": true,
-        "serverSide": true,
-        "pageLength": 10,
-        "ajax": {
-            "url": "/leads/fetch",
-            "data": function ( data ) {
-			 
-         }},
-        "columns": [
-                    { "data": "lead_id", "name" : "LeadID", "title" : "LeadID"  },
-                    { "data": "name", "name" : "Name" , "title" : "Name"},
-                    { "data": "mobile", "name" : "Mobile" , "title" : "Mobile"},
-                    { "data": "creation_date", "name" : "CreationDate" , "title" : "CreationDate"},
-                    { "data": "last_updated_date", "name" : "LastUpdatedDate" , "title" : "LastUpdatedDate"},
-                    { "data": "status", "name" : "Status" , "title" : "Status"},
-                   
-                ]    
-	});
-	
-	$('#paginatedTable').dataTable().fnSetFilteringEnterPress();
+   
     
 } );
 toastr.options = {
@@ -64,21 +44,3 @@ $('select').on('change', function() {
 			);
 	  
 	});
-jQuery.fn.dataTableExt.oApi.fnSetFilteringEnterPress = function(oSettings) {
-	var _that = this;
-
-	this.each(function(i) {
-		$.fn.dataTableExt.iApiIndex = i;
-		var anControl = $('input', _that.fnSettings().aanFeatures.f);
-
-		anControl.unbind('keyup search input').bind(
-				'keyup search input',
-				function(e) {
-					if (anControl.val().length == "" || anControl.val().length > 2) {
-						_that.fnFilter(anControl.val());
-					}
-				});
-		return this;
-	});
-	return this;
-};
