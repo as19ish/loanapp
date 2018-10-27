@@ -19,6 +19,10 @@ public class CustomEmployeeDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		Employee employee = employeeService.getByEmail(username);
+		if(employee == null) {
+			throw new UsernameNotFoundException(username);
+			
+		}
 		return employeeService.prepareAuthUser(employee);
 	}
 
