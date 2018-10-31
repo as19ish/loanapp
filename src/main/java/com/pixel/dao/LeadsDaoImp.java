@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-
+import com.pixel.bean.InterestedLead;
 import com.pixel.excel.Lead;
 
 @Component
@@ -81,7 +81,12 @@ public class LeadsDaoImp implements LeadsDao {
 		return false;
 		
 	}
-
+	@Override
+	public boolean addToIntrested(InterestedLead lead) {
+		String query = "UPDATE `leads` SET `status`='intrested',`email` = ? ,`company`= ?,`salary` = ?,`alternate_mobile`=? WHERE `leads`.`lead_id` = ?";
+		jdbcTemplate.update(query, new Object[]{lead.getEmail(),lead.getCompany(),lead.getSalary(),lead.getAlternate_mobile(),lead.getLead_id()});
+		return true;
+	}
 
 		
 	
@@ -117,6 +122,9 @@ public class LeadsDaoImp implements LeadsDao {
 			return lead;
 		}
 	}
+
+
+	
 
 
 	

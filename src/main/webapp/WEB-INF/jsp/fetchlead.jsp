@@ -77,6 +77,15 @@
 		<link rel="shortcut icon" href="assets/demo/media/img/logo/favicon.ico" />
 		<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<style>
+		  #ui-id-1{
+		    z-index:9999;
+		  }
+		  em{
+	         color: rgba(232, 5, 5, 0.83);	  
+		  }
+		</style>
 	</head>
 
 	<!-- end::Head -->
@@ -167,7 +176,7 @@
 								                        <td>${lead.mobile}</td>
 								                        
 								                        <td><select class="selectpicker" data-mobile="false" id="changeStatus" >
-															  <option >${lead.status}</option>
+															  <option value="${lead.status}" >${lead.status}</option>
 															  
 															 <c:choose>
 															    <c:when test="${lead.status=='new'}">
@@ -201,7 +210,7 @@
 			 <%@ include file="/WEB-INF/layouts/footer.jsp" %>
 
 			<!-- end::Footer -->
-		</div>
+		
 
 		<!-- end:: Page -->
 
@@ -213,7 +222,196 @@
 
 		<!-- end::Scroll Top -->
 
-		
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered" style="max-width:85% !important">
+      <div class="modal-content">
+      
+       
+        
+        <!-- Modal body -->
+        <div class="modal-body" style="padding-left:12%;padding-top:7%;">
+            <div class="form-body">
+                             <h3 class="form-section">Personal Info</h3>
+                             <form id="pinfo">
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Full Name</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control" placeholder="${lead.name}" disabled>
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Mobile No</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control" placeholder="${lead.mobile}" disabled>
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                             </div>
+                             <!--/row-->
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Email</label>
+                                         <div class="col-md-9">
+                                             <input type="email" class="form-control" name="email" id="email" placeholder="ex: user@gmsil.com" >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Company Name</label>
+                                         <div class="col-md-9">
+                                             <input id="company" type="text" class="form-control" name="company" id="company" placeholder="ex: g.." >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                             </div>
+                             <!--/row-->
+                             <!--/row-->
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Monthly Salary</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control" name="salary" id="salary" placeholder="ex: 40000" >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                                <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Alternate Mobile No</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control" name="alternate_mobile" id="alternate_mobile" placeholder="ex: 89798635214" >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                             </div>
+                             <!--/row-->
+                             <input type="hidden" name="lead_id" value="${lead.lead_id}" >
+                           </form>  
+                             <h3 class="form-section">Existing Loan Details</h3>
+                             <!--/row-->
+                         <form id="eloan" >
+							  <fieldset>
+							   
+							    <div class="repeater-default">
+							      <div data-repeater-list="eloan">
+							        <div data-repeater-item   >
+							           <div class="row">
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Loan Type</label>
+                                         <div class="col-md-9">
+                                            <select class="form-control" name="type" >
+										    <option>Home</option>
+										    <option>Personal</option>
+										    <option>Vehicle</option>
+								        	  </select>
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Amount</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control" name="amount" placeholder="ex:10000" >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                             </div>
+                             <!--/row-->
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Emi</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control" name="emi" placeholder="ex: 3000" >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Loan Company Name</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control" name="company" placeholder="ex: google" >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                             </div>
+                             <input type="hidden" name="lead_id" value="${lead.lead_id}" >
+                             <!--/row-->
+                             <div class="row" >
+                               <div class="col-md-6">
+                                   <div class="form-group">
+					              <span data-repeater-delete class="btn btn-danger btn-sm" style="margin-left:3%">
+					                <span class="glyphicon glyphicon-remove"></span> Delete
+					              </span>
+                                </div>
+                               </div>
+                              </div>
+                             <!--/row-->
+                             <hr>
+							        </div>
+							
+							   
+							      </div>
+							      <div class="form-group">
+							        <div class="col-sm-offset-1 col-sm-11">
+							          <span data-repeater-create class="btn btn-info btn-md">
+							            <span class="glyphicon glyphicon-plus"></span> Add
+							          </span>
+							        </div>
+							      </div>
+							
+							      
+							
+							    </div>
+							    
+							  </fieldset>
+							</form>
+                             
+                             
+                         </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary mt-ladda-btn ladda-button" data-style="zoom-in" id="submit">
+            <span class="ladda-label">Submit</span>
+            <span class="ladda-spinner"></span>
+             <div class="ladda-progress" style="width: 0px;">
+            </div>
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
 		<!--begin:: Global Mandatory Vendors -->
 		<script src="vendors/jquery/dist/jquery.js" type="text/javascript"></script>
@@ -297,11 +495,147 @@
 
 		<!--begin::Page Scripts -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" type="text/javascript"></script>
+		<script src="http://briandetering.net/jquery.repeater/jquery.repeater.js" type="text/javascript"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript">
+	jQuery.validator.setDefaults({
+		  debug: true,
+		  success: "valid"
+		});
+	       $('.repeater-default').repeater({
+	    	   defaultValues: {
+	    		    
+	    		    lead_id: '${lead.lead_id}',
+	    		   
+	    		  },
+	    		  initEmpty: true,
+	    		 
+	    		  show: function () {
+	                  $(this).slideDown();
+	              },
+	              hide: function (deleteElement) {
+	            	 
+	                  if(confirm('Are you sure you want to delete this ?')) {
+	                      $(this).slideUp(deleteElement);
+	                  }
+	              },
+	              isFirstItemUndeletable: true
+	       }
+	              );
 		   $('.selectpicker').selectpicker();
 		   $('#changeStatus').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+			   if(e.target.value == 'new'){
+				   return false;
+			   }	     
+			   
+			   switch(clickedIndex) {
+			   
+			    case 1:
+			    	
+			    	$("#myModal").modal({
+					    backdrop: 'static',
+					    keyboard: false});
+			        break;
+                case 2:
+                	
+                	changeStatus();
+			        break;    
+			        
+			}
+			 
+			   $('.selectpicker').selectpicker('val', 'new');		   
+			 
+			 });
+		   $( function() {
+			    var availableTags = [
+			      "Reliance Industries",
+			      "State Bank of India",
+			      "Oil & Natural Gas",
+			      "HDFC Bank",
+			      "Indian Oil",
+			      "Tata Motors",
+			      "ICICI Bank",
+			      "HDFC",
+			      "Tata Consultancy Services",
+			      "NTPC",
+			      "Axis Bank",
+			      "Larsen & Toubro",
+			      "Bharti Airtel",
+			      "Coal India",
+			      "Bharat Petroleum",
+			      "Infosys",
+			      "Kotak Mahindra Bank",
+			      "Wipro",
+			      "Hindalco Industries",
+			      "Wockhardt",
+			    ];
+			    $( "#company" ).autocomplete({
+			      source: availableTags
+			    });
+			  } );
+		   
+		   $("#submit").click(function(e){
+			  
+			      e.preventDefault();
+			      var validator = $( "#pinfo" ).validate();
+			      if(!validator.form()){
+			    	  return false;  
+			      } 
+			      $('input').next().remove();
+			      var lead = {};
+			      var formArray = $('#pinfo').serializeArray();
+			      for (var i = 0; i < formArray.length; i++){
+			    	  lead[formArray[i]['name']] = formArray[i]['value'];
+			      }
+			      try {
+			    	  lead['eloan'] =  $('.repeater-default').repeaterVal()["eloan"];
+			    	}
+			    	catch(err) {
+			    		lead['eloan'] = [];
+			    	}
+			     
+			     
+			      $.post({
+			         url : 'leads/interested',
+			         contentType : "application/json",
+			         data : JSON.stringify(lead),
+			         dataType: "json",
+			         success : function(res) {
+			             if(res['status'] == 'success'){
+			        	      
+			        	      $("#myModal").modal("hide");
+			        	      toastr.success('Successfully Status Changed!! ');
+			        	      setTimeout(function(){
+			        	    	    toastr.success('Fetching New Lead....');
+						  		  },700);
+			        	      setTimeout(function(){
+			        	    	    
+						  		//	location.reload();
+						  		  },1500);
+			             }else{
+			            	 
+			            	 $("#myModal").modal("hide");
+				        	 toastr.error('Error!! Someyhing went wrong ')	 
+			            	 
+			             }
+			            
+			         },
+			         error:function(error){
+			        	 
+			        	 $("#myModal").modal("hide");
+			        	 toastr.error('Error!! Someyhing went wrong  '); 
+			        	 setTimeout(function(){
+					  		//	location.reload();
+					  		  },800);
+			         }
+			      })
+			   });
+		   function changeStatus(){
+			   if(!confirm("Are you sure?")){
+				   return false;
+			   }
 			   var promise =  new Promise((resolve, reject) => {
-				      $.getJSON('change_lead_status/'+clickedIndex)
+				      $.getJSON('leads/notinterested')
 				        .done(resolve)
 				        .fail(reject);
 				      });
@@ -310,9 +644,13 @@
 						    	
 						    	if (status == true){
 						  		  toastr.success('Successfully Status Changed!! '); 
-						  		  setTimeout(function(){
-						  			location.reload();
-						  		  },200);
+						  		setTimeout(function(){
+			        	    	    toastr.success('Fetching New Lead....');
+						  		  },700);
+			        	         setTimeout(function(){
+			        	    	    
+						  			//location.reload();
+						  		  },1500);
 						  		  
 						  		  
 						  	  }else{
@@ -323,9 +661,68 @@
 						    	toastr.error('Something went wrong!! ');
 						    }
 						);
-				  
-			 
-			 });
+		   }
+		     
+		   jQuery.validator.addMethod("email", function(value, element) {
+			   return this.optional( element ) || /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test( value );
+			 }, 'Please enter a valid email');
+		   $("#pinfo").validate({
+				rules: {
+					email: {
+						required: false,
+						email: true
+					},
+					company: {
+						
+						maxlength: 30,
+						required: true,
+						
+					},
+					salary: {
+						
+						required: true,
+						maxlength: 12,
+						digits: true,
+					},
+					alternate_mobile: {
+						minlength: 10,
+						maxlength: 12,
+						digits: true,
+					}
+					
+					
+				},
+				messages: {
+					email: {
+						email: "Please enter valid email"
+					},
+					company: {
+						maxlength: "Please enter valid company name",
+						required: "Required"
+					},
+					salary: {
+						maxlength: "Please enter valid salary",
+						digits: "Only digites allowed",
+						required: "Required"
+					},
+					alternate_mobile: {
+						required: "Required",
+						minlength: "Please Enter valid 10 digit Mobile no",
+						maxlength: "Please Enter valid 10 digit Mobile no",
+						digits: "Please Enter valid 10 Mobile no",
+					}
+				},
+				errorElement: "em",
+				 highlight: function(element, errorClass, validClass) {
+					    
+								 $('#'+element.id).css({"border": "1px solid rgba(232, 5, 5, 0.4)"})
+							 },
+					 unhighlight:function(element, errorClass, validClass) {
+									 $('#'+element.id).css({"border": "1px solid #e2e2e2"})
+								 },
+
+			});
+
 		</script>
 
 

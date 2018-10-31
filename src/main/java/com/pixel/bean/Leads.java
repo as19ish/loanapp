@@ -8,10 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * @author pavan.solapure
- *
- */
+
 @Entity
 @Table(name = "leads")
 public class Leads {
