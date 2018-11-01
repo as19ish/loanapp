@@ -29,6 +29,7 @@
 						     <c:if test="${AppUtil.hasRole('employee')}">
 						   	<li class="m-menu__item  <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/fetch-lead'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/fetch-lead" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Fetch Lead</span></a></li>
 						     </c:if>
-						   				
+						    <li class="m-menu__item  <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/ileads'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/ileads" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Interested Leads</span></a></li>
+						     				
 						</ul>
 </div>

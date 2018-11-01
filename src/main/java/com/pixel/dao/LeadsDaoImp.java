@@ -3,16 +3,17 @@ package com.pixel.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.pixel.bean.InterestedLead;
 import com.pixel.excel.Lead;
+import com.pixel.util.AppUtil;
 
 @Component
 public class LeadsDaoImp implements LeadsDao {
@@ -83,9 +84,30 @@ public class LeadsDaoImp implements LeadsDao {
 	}
 	@Override
 	public boolean addToIntrested(InterestedLead lead) {
-		String query = "UPDATE `leads` SET `status`='intrested',`email` = ? ,`company`= ?,`salary` = ?,`alternate_mobile`=? WHERE `leads`.`lead_id` = ?";
+		String query = "UPDATE `leads` SET `status`='interested',`email` = ? ,`company`= ?,`salary` = ?,`alternate_mobile`=? WHERE `leads`.`lead_id` = ?";
 		jdbcTemplate.update(query, new Object[]{lead.getEmail(),lead.getCompany(),lead.getSalary(),lead.getAlternate_mobile(),lead.getLead_id()});
 		return true;
+	}
+	
+	@Override
+	public List<Lead> getInterstedLead() {
+		
+		try {
+			
+		    if(AppUtil.hasRole("admin")) {
+		    	String query = "SELECT * FROM leads WHERE  status = 'interested'";
+			    List<Lead> leads = jdbcTemplate.query(query, new BeanPropertyRowMapper<Lead>(Lead.class));
+			    return leads;
+	     	}else {
+	     		String query = "SELECT * FROM leads WHERE  status = 'interested' and employee_id = ?";
+	     		List<Lead> leads = jdbcTemplate.query(query,new Object[]{AppUtil.getEmployeeId()}, new BeanPropertyRowMapper<Lead>(Lead.class));
+	     		return leads;
+		   }
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 
 		
@@ -122,6 +144,9 @@ public class LeadsDaoImp implements LeadsDao {
 			return lead;
 		}
 	}
+
+
+	
 
 
 	

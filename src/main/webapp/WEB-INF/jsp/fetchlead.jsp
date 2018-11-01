@@ -610,7 +610,7 @@
 						  		  },700);
 			        	      setTimeout(function(){
 			        	    	    
-						  		//	location.reload();
+						  			location.reload();
 						  		  },1500);
 			             }else{
 			            	 
@@ -625,7 +625,7 @@
 			        	 $("#myModal").modal("hide");
 			        	 toastr.error('Error!! Someyhing went wrong  '); 
 			        	 setTimeout(function(){
-					  		//	location.reload();
+					  			location.reload();
 					  		  },800);
 			         }
 			      })
@@ -649,7 +649,7 @@
 						  		  },700);
 			        	         setTimeout(function(){
 			        	    	    
-						  			//location.reload();
+						  			location.reload();
 						  		  },1500);
 						  		  
 						  		  

@@ -7,12 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pixel.service.AdminService;
+import com.pixel.service.LeadService;
 import com.pixel.util.AppUtil;
 
 @Controller
 public class WebsiteNavigationController {
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private LeadService leadService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(ModelMap model) {
@@ -41,4 +44,10 @@ public class WebsiteNavigationController {
 	public String addLeads(ModelMap model) {
 		return "addlead";
 	}
+	@RequestMapping(value = "/ileads", method = RequestMethod.GET)
+	public String getInterestedLead(ModelMap model) {
+		model.addAttribute("ileads",leadService.getInterestedLead());
+		return "ileads";
+	}
+	
 }

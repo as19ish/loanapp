@@ -1,5 +1,7 @@
 package com.pixel.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -49,6 +51,12 @@ public class LeadServiceImp implements LeadService {
 		leadDao.addToIntrested(lead);
 		eloanDao.create(lead);
 		return true;
+	}
+
+
+	@Override
+	public List<Lead> getInterestedLead() {
+		return leadDao.getInterstedLead();
 	}
 
 	

@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.google.gson.Gson;
+import com.pixel.bean.AuthEmployee;
 import com.pixel.bean.pagination.PaginationCriteria;
 
 
@@ -32,6 +33,10 @@ public class AppUtil {
 
         return false;
     }
+	public static long getEmployeeId() {
+		AuthEmployee current_employee = (AuthEmployee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return current_employee.getEmployee_id();
+	}
 	private static boolean isCollectionEmpty(Collection<?> collection) {
 		if (collection == null || collection.isEmpty()) {
 			return true;
