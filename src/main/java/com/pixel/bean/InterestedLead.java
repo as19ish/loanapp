@@ -1,5 +1,6 @@
 package com.pixel.bean;
 
+import java.util.Date;
 import java.util.List;
 
 public class InterestedLead {
@@ -8,9 +9,11 @@ public class InterestedLead {
 	private String email;
 	private String mobile;
 	private String company;
+	private Date last_updated_date = new Date();
 	private String salary;
 	private String alternate_mobile;
 	private List<Eloan> eloan;
+	private List<Ecard> ecard;
 	
 	public long getLead_id() {
 		return lead_id;
@@ -29,6 +32,12 @@ public class InterestedLead {
 	}
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+	public Date getLast_updated_date() {
+		return last_updated_date;
+	}
+	public void setLast_updated_date(Date last_updated_date) {
+		this.last_updated_date = last_updated_date;
 	}
 	public String getCompany() {
 		return company;
@@ -53,6 +62,12 @@ public class InterestedLead {
 	}
 	public void setEloan(List<Eloan> eloan) {
 		this.eloan = eloan;
+	}
+	public List<Ecard> getEcard() {
+		return ecard;
+	}
+	public void setEcard(List<Ecard> ecard) {
+		this.ecard = ecard;
 	}
 	
 

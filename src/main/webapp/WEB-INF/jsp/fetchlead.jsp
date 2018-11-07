@@ -82,6 +82,9 @@
 		  #ui-id-1{
 		    z-index:9999;
 		  }
+		  #ui-id-2{
+		    z-index:9999;
+		  }
 		  em{
 	         color: rgba(232, 5, 5, 0.83);	  
 		  }
@@ -176,15 +179,9 @@
 								                        <td>${lead.mobile}</td>
 								                        
 								                        <td><select class="selectpicker" data-mobile="false" id="changeStatus" >
-															  <option value="${lead.status}" >${lead.status}</option>
-															  
-															 <c:choose>
-															    <c:when test="${lead.status=='new'}">
-															      <option >Interested</option>
-															      <option>Not Interested</option>
-															    </c:when>    
-															</c:choose>
-															  
+								                             <c:forEach items="${status}" var="item">
+															   <option value="${item.id}" >${item.name}</option>
+															</c:forEach>  
 															</select>
 								                        </td>
 								                        
@@ -222,7 +219,7 @@
 
 		<!-- end::Scroll Top -->
 
-<div class="modal fade" id="myModal">
+<div class="modal fade" id="interested">
     <div class="modal-dialog modal-lg modal-dialog-centered" style="max-width:85% !important">
       <div class="modal-content">
       
@@ -231,7 +228,7 @@
         <!-- Modal body -->
         <div class="modal-body" style="padding-left:12%;padding-top:7%;">
             <div class="form-body">
-                             <h3 class="form-section">Personal Info</h3>
+                             <h3 class="form-section" style="margin-left:1.4%" >Personal Info</h3>
                              <form id="pinfo">
                              <div class="row">
                                  <div class="col-md-6">
@@ -305,12 +302,12 @@
                              <!--/row-->
                              <input type="hidden" name="lead_id" value="${lead.lead_id}" >
                            </form>  
-                             <h3 class="form-section">Existing Loan Details</h3>
+                             <h3 class="form-section" style="margin-left:1.4%">Existing Loan Details</h3>
                              <!--/row-->
                          <form id="eloan" >
 							  <fieldset>
 							   
-							    <div class="repeater-default">
+							    <div class="repeater-default" id="repeater-eloan">
 							      <div data-repeater-list="eloan">
 							        <div data-repeater-item   >
 							           <div class="row">
@@ -318,7 +315,7 @@
                                      <div class="form-group">
                                          <label class="control-label col-md-6">Loan Type</label>
                                          <div class="col-md-9">
-                                            <select class="form-control" name="type" >
+                                            <select class="form-control" name="type" required data-msg="Please select Loan Type" >
 										    <option>Home</option>
 										    <option>Personal</option>
 										    <option>Vehicle</option>
@@ -332,7 +329,7 @@
                                      <div class="form-group">
                                          <label class="control-label col-md-6">Amount</label>
                                          <div class="col-md-9">
-                                             <input type="text" class="form-control" name="amount" placeholder="ex:10000" >
+                                             <input type="text" class="form-control" name="amount" placeholder="ex:10000" data-rule-digits="true" data-msg-digits="Please Enter Valid Amount in digits" data-rule-minlength="4" data-msg-minlength="Enter Valid Amount" data-rule-maxlength="10" data-msg-maxlength="Please Enter Valid Amount" data-msg="Please fill Amount" required >
                                             
                                          </div>
                                      </div>
@@ -345,7 +342,7 @@
                                      <div class="form-group">
                                          <label class="control-label col-md-6">Emi</label>
                                          <div class="col-md-9">
-                                             <input type="text" class="form-control" name="emi" placeholder="ex: 3000" >
+                                             <input type="text" class="form-control" name="emi" placeholder="ex: 3000" data-rule-digits="true" data-msg-digits="Please Enter Valid Amount in digits" data-rule-minlength="2" data-msg-minlength="Enter Valid Amount" data-rule-maxlength="8" data-msg-maxlength="Please Enter Valid Amount" data-msg="Please fill Amount" required >
                                             
                                          </div>
                                      </div>
@@ -355,13 +352,110 @@
                                      <div class="form-group">
                                          <label class="control-label col-md-6">Loan Company Name</label>
                                          <div class="col-md-9">
-                                             <input type="text" class="form-control" name="company" placeholder="ex: google" >
+                                             <input type="text" class="form-control" name="company" placeholder="ex: google" data-msg="Please fill Loan Company" required >
                                             
                                          </div>
                                      </div>
                                  </div>
                                  <!--/span-->
                              </div>
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Loan Tenure</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control" name="tenure" placeholder="ex: 12" data-rule-digits="true" data-msg-digits="Please Enter Value In Month" data-rule-maxlength="4" data-msg-maxlength="Enter valid Months" data-msg="Please fill loan tenure" required >
+                                             <small  class="form-text text-muted">In months</small>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Loan Repayment</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control" name="repayment" placeholder="ex: 5" data-rule-digits="true" data-msg-digits="Please Enter Value In Month" data-rule-maxlength="4" data-msg-maxlength="Enter valid Months" data-msg="Please fill this field" required >
+                                             <small  class="form-text text-muted">In months</small>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                             </div>
+                             <input type="hidden" name="lead_id" value="${lead.lead_id}" >
+                             <!--/row-->
+                             <div class="row" >
+                               <div class="col-md-6">
+                                   <div class="form-group">
+					              <span data-repeater-delete class="btn btn-danger btn-sm" style="margin-left:3%">
+					                <span class="glyphicon glyphicon-remove"></span> Delete
+					              </span>
+                                </div>
+                               </div>
+                              </div>
+                             <!--/row-->
+                             <hr>
+							        </div>
+							
+							   
+							      </div>
+							      <div class="form-group">
+							        <div class="col-sm-offset-1 col-sm-11">
+							          <span data-repeater-create class="btn btn-info btn-md">
+							            <span class="glyphicon glyphicon-plus"></span> Add
+							          </span>
+							        </div>
+							      </div>
+							
+							      
+							
+							    </div>
+							    
+							  </fieldset>
+							</form>
+							<h3 class="form-section" style="margin-left:1.4%">Existing Credit Card Details</h3>
+                             <!--/row-->
+                         <form id="ecard" >
+							  <fieldset>
+							   
+							    <div class="repeater-default" id="repeater-ecard" >
+							      <div data-repeater-list="ecard">
+							        <div data-repeater-item   >
+							           <div class="row">
+                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                         <label class="control-label col-md-6">Issuing Bank Name</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control issuing_bank" name="issuing_bank" id="issuing_bank" placeholder="ex: SBI" data-msg="Please fill Issuing Bank Name" required >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Card Limit</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control" name="card_limit" placeholder="ex: 50000" data-rule-digits="true" data-msg-digits="Enter Valid Card Limit" data-rule-maxlength="9" data-msg-maxlength="Enter valid Amount" data-msg="Please fill Card Limit" required >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                             </div>
+                             <!--/row-->
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Card Used</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control" name="card_used" placeholder="ex: 3000" data-rule-digits="true" data-msg-digits="Enter Valid Card Limit" data-rule-maxlength="9" data-msg-maxlength="Enter valid Amount" data-msg="Please fill Used Amount" required >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                               
+                             </div>
+                             
                              <input type="hidden" name="lead_id" value="${lead.lead_id}" >
                              <!--/row-->
                              <div class="row" >
@@ -412,7 +506,67 @@
       </div>
     </div>
   </div>
-
+<div class="modal fade" id="remark">
+    <div class="modal-dialog modal-lg modal-dialog-centered" style="max-width:50% !important">
+      <div class="modal-content">
+        <div class="modal-body" style="padding-left:5%;padding-top:9%;">
+            <div class="form-body">
+                             
+                             <form id="rform">
+                             <div class="row">
+                                 <div class="col-md-12">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Full Name</label>
+                                         <div class="col-md-12">
+                                             <input type="text" class="form-control" placeholder="${lead.name}" disabled>
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="row">
+                                 <div class="col-md-12">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Mobile No</label>
+                                         <div class="col-md-12">
+                                             <input type="text" class="form-control" placeholder="${lead.mobile}" disabled>
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                              </div>
+                             <!--/row-->
+                             <div class="row">
+                                 <div class="col-md-12">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Remark</label>
+                                         <div class="col-md-12">
+                                            <textarea class="form-control" rows="2" name="remark" id="text_remark"></textarea>
+                                         </div>
+                                     </div>
+                                 </div>
+                                </div>
+                             
+                             <input type="hidden" name="status_id" id="status_id" >
+                             
+                           </form>
+                         </div>
+                     </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer" style="padding:11px;">
+          <button type="button" class="btn btn-primary mt-ladda-btn ladda-button" data-style="zoom-in" id="r_submit">
+            <span class="ladda-label">Submit</span>
+            <span class="ladda-spinner"></span>
+             <div class="ladda-progress" style="width: 0px;">
+            </div>
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 		<!--begin:: Global Mandatory Vendors -->
 		<script src="vendors/jquery/dist/jquery.js" type="text/javascript"></script>
 		<script src="vendors/popper.js/dist/umd/popper.js" type="text/javascript"></script>
@@ -498,11 +652,36 @@
 		<script src="http://briandetering.net/jquery.repeater/jquery.repeater.js" type="text/javascript"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript">
-	jQuery.validator.setDefaults({
-		  debug: true,
-		  success: "valid"
-		});
-	       $('.repeater-default').repeater({
+	
+	    var banks = [
+	      "Axis Bank",
+	      "Bank of Baroda",
+	      "Canara Bank",
+	      "Corporation Bank",
+	      "HDFC",
+	      "ICICI Bank",
+	      "Indian Overseas Bank",
+	      "Kotak Mahindra",
+	      "Punjab National Bank",
+	      "SBI",
+	      "Syndicate Bank",
+	      "Union Bank of India",
+	      "Vijaya Bank",
+	      "Vijaya Bank",
+	      "American Express",
+	      "ANZ",
+	      "Barclays Bank",
+	      "Citibank",
+	      "Diners Club",
+	      "HSBC",
+	      "Standard Chartered",
+	      
+	    ];
+	    $( ".form-control.issuing_bank" ).autocomplete({
+	      source: banks
+	    });
+	 
+	       $('#repeater-eloan').repeater({
 	    	   defaultValues: {
 	    		    
 	    		    lead_id: '${lead.lead_id}',
@@ -511,6 +690,9 @@
 	    		  initEmpty: true,
 	    		 
 	    		  show: function () {
+	    			  $( ".form-control.issuing_bank" ).autocomplete({
+	    			      source: banks
+	    			    });
 	                  $(this).slideDown();
 	              },
 	              hide: function (deleteElement) {
@@ -522,63 +704,75 @@
 	              isFirstItemUndeletable: true
 	       }
 	              );
+	       $('#repeater-ecard').repeater({
+	    	   defaultValues : {
+	    		 lead_id : '${lead.lead_id}'  
+	    	   },
+	    	   initEmpty: true,
+	    	   show: function(){
+	    		   
+	    		   $(this).slideDown();
+	    	   },
+	    	   hide: function(deleteElement){
+	    		   if(confirm('Are you sure you want to delete this ?')) {
+	                      $(this).slideUp(deleteElement);
+	                  }
+	    	   }
+	       });
 		   $('.selectpicker').selectpicker();
 		   $('#changeStatus').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-			   if(e.target.value == 'new'){
+			   
+			   if(e.target.selectedOptions[0].innerText == 'new'){
 				   return false;
 			   }	     
 			   
-			   switch(clickedIndex) {
 			   
-			    case 1:
-			    	
-			    	$("#myModal").modal({
+			   if(e.target.selectedOptions[0].innerText == "interested"){
+				   $("#interested").modal({
 					    backdrop: 'static',
 					    keyboard: false});
-			        break;
-                case 2:
-                	
-                	changeStatus();
-			        break;    
-			        
-			}
+			   }else{
+				   $('#status_id').val(e.target.value);
+				   $("#remark").modal({
+					    backdrop: 'static',
+					    keyboard: false});
+				   
+			   }
 			 
-			   $('.selectpicker').selectpicker('val', 'new');		   
+			   $('.selectpicker').selectpicker('val', '1');		   
 			 
 			 });
-		   $( function() {
-			    var availableTags = [
-			      "Reliance Industries",
-			      "State Bank of India",
-			      "Oil & Natural Gas",
-			      "HDFC Bank",
-			      "Indian Oil",
-			      "Tata Motors",
-			      "ICICI Bank",
-			      "HDFC",
-			      "Tata Consultancy Services",
-			      "NTPC",
-			      "Axis Bank",
-			      "Larsen & Toubro",
-			      "Bharti Airtel",
-			      "Coal India",
-			      "Bharat Petroleum",
-			      "Infosys",
-			      "Kotak Mahindra Bank",
-			      "Wipro",
-			      "Hindalco Industries",
-			      "Wockhardt",
-			    ];
+		
 			    $( "#company" ).autocomplete({
-			      source: availableTags
-			    });
-			  } );
+					source : '${pageContext.request.contextPath }/company/search'
+				});
+			 
 		   
 		   $("#submit").click(function(e){
 			  
 			      e.preventDefault();
 			      var validator = $( "#pinfo" ).validate();
-			      if(!validator.form()){
+			      var validator2 = $("#eloan").validate({
+			    	  errorElement: "em",
+			    	  highlight: function(element, errorClass, validClass) {
+						    
+							 $(element).css({"border": "1px solid rgba(232, 5, 5, 0.4)"})
+						 },
+			    	 unhighlight:function(element, errorClass, validClass) {
+								 $(element).css({"border": "1px solid #e2e2e2"})
+							 },
+			      });
+			      var validator3 = $("#ecard").validate({
+			    	  errorElement: "em",
+			    	  highlight: function(element, errorClass, validClass) {
+						    
+							 $(element).css({"border": "1px solid rgba(232, 5, 5, 0.4)"})
+						 },
+			    	 unhighlight:function(element, errorClass, validClass) {
+								 $(element).css({"border": "1px solid #e2e2e2"})
+							 },
+			      });
+			      if(!validator.form() || !validator2.form() || !validator3.form()){
 			    	  return false;  
 			      } 
 			      $('input').next().remove();
@@ -588,12 +782,17 @@
 			    	  lead[formArray[i]['name']] = formArray[i]['value'];
 			      }
 			      try {
-			    	  lead['eloan'] =  $('.repeater-default').repeaterVal()["eloan"];
+			    	  lead['eloan'] =  $('#repeater-eloan').repeaterVal()["eloan"];
 			    	}
 			    	catch(err) {
 			    		lead['eloan'] = [];
 			    	}
-			     
+		    	try {
+			    	  lead['ecard'] =  $('#repeater-ecard').repeaterVal()["ecard"];
+			    	}
+			    	catch(err) {
+			    		lead['ecard'] = [];
+			    	}
 			     
 			      $.post({
 			         url : 'leads/interested',
@@ -603,7 +802,7 @@
 			         success : function(res) {
 			             if(res['status'] == 'success'){
 			        	      
-			        	      $("#myModal").modal("hide");
+			        	      $("#interested").modal("hide");
 			        	      toastr.success('Successfully Status Changed!! ');
 			        	      setTimeout(function(){
 			        	    	    toastr.success('Fetching New Lead....');
@@ -614,7 +813,7 @@
 						  		  },1500);
 			             }else{
 			            	 
-			            	 $("#myModal").modal("hide");
+			            	 $("#interested").modal("hide");
 				        	 toastr.error('Error!! Someyhing went wrong ')	 
 			            	 
 			             }
@@ -622,7 +821,7 @@
 			         },
 			         error:function(error){
 			        	 
-			        	 $("#myModal").modal("hide");
+			        	 $("#interested").modal("hide");
 			        	 toastr.error('Error!! Someyhing went wrong  '); 
 			        	 setTimeout(function(){
 					  			location.reload();
@@ -630,39 +829,53 @@
 			         }
 			      })
 			   });
-		   function changeStatus(){
-			   if(!confirm("Are you sure?")){
-				   return false;
-			   }
-			   var promise =  new Promise((resolve, reject) => {
-				      $.getJSON('leads/notinterested')
-				        .done(resolve)
-				        .fail(reject);
-				      });
-				  promise.then(
-						    function(status) {
-						    	
-						    	if (status == true){
-						  		  toastr.success('Successfully Status Changed!! '); 
-						  		setTimeout(function(){
+
+		     $("#r_submit").click(function(e){
+		    	 e.preventDefault();
+		    	 var lead = {};
+		    	 lead['status_id'] = $('#status_id').val();
+		    	 lead['remark'] = $('#text_remark').val();
+		    	 
+		    	 
+		    	 $.post({
+			         url : 'leads/status',
+			         contentType : "application/json",
+			         data : JSON.stringify(lead),
+			         dataType: "json",
+			         success : function(res) {
+			             if(res['status'] == 'success'){
+			        	      
+			        	      $("#interested").modal("hide");
+			        	      toastr.success('Successfully Status Changed!! ');
+			        	      setTimeout(function(){
 			        	    	    toastr.success('Fetching New Lead....');
 						  		  },700);
-			        	         setTimeout(function(){
+			        	      setTimeout(function(){
 			        	    	    
 						  			location.reload();
 						  		  },1500);
-						  		  
-						  		  
-						  	  }else{
-						  		  toastr.warning('Something went wrong!! ');
-						  	  }
-						    },
-						    function(reason) {
-						    	toastr.error('Something went wrong!! ');
-						    }
-						);
-		   }
-		     
+			             }else{
+			            	 
+			            	 $("#interested").modal("hide");
+				        	 toastr.error('Error!! Someyhing went wrong Please Reload Page and try again ')	 
+			            	 
+			             }
+			            
+			         },
+			         error:function(error){
+			        	 
+			        	 $("#interested").modal("hide");
+			        	 toastr.error('Error!! Someyhing went wrong  '); 
+			        	 setTimeout(function(){
+					  			location.reload();
+					  		  },800);
+			         }
+			      })
+
+		    	 
+		    	 
+		    	 
+		     });
 		   jQuery.validator.addMethod("email", function(value, element) {
 			   return this.optional( element ) || /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test( value );
 			 }, 'Please enter a valid email');
@@ -722,6 +935,7 @@
 								 },
 
 			});
+		   
 
 		</script>
 

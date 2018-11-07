@@ -7,6 +7,9 @@ public class Eloan {
 	private String company;
 	private String amount;
 	private String emi;
+	private int tenure;
+	private int repayment;
+	
 	
 	public long getLead_id() {
 		return lead_id;
@@ -37,6 +40,18 @@ public class Eloan {
 	}
 	public void setEmi(String emi) {
 		this.emi = emi;
+	}
+	public int getTenure() {
+		return tenure;
+	}
+	public void setTenure(int tenure) {
+		this.tenure = tenure;
+	}
+	public int getRepayment() {
+		return repayment;
+	}
+	public void setRepayment(int repayment) {
+		this.repayment = repayment;
 	}
 	
 	 

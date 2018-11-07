@@ -9,8 +9,10 @@ public class Lead {
 	private String mobile;
 	private Date creation_date = new Date();
 	private Date last_updated_date = new Date();
-	private String status = "new";
+	private int status_id = 1;
+	private String status; 
 	private Long employee_id;
+	
 	public Long getLead_id() {
 		return lead_id;
 	}
@@ -46,6 +48,12 @@ public class Lead {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public int getStatus_id() {
+		return status_id;
+	}
+	public void setStatus_id(int status_id) {
+		this.status_id = status_id;
 	}
 	public Long getEmployee_id() {
 		return employee_id;

@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pixel.bean.AuthEmployee;
 import com.pixel.bean.InterestedLead;
+import com.pixel.bean.Remark;
 import com.pixel.excel.Lead;
 import com.pixel.service.LeadService;
+import com.pixel.service.StatusService;
 
 
 
@@ -29,6 +29,9 @@ public class LeadsController {
 	@Autowired
 	private LeadService leadService;
 	
+	@Autowired
+	private StatusService statusService;
+	
 	@RequestMapping(value = "/add-leads", method = RequestMethod.POST)
 	public String addLead(ModelMap model, @ModelAttribute("lead") Lead lead) {
 
@@ -37,7 +40,7 @@ public class LeadsController {
 			if (isAdded) {
 				model.addAttribute("message", "Lead added sucessfully");
 			} else {
-				model.addAttribute("error", "Some thing went wrong!");
+				model.addAttribute("error", "Some thing went wrong or Mobile No already exists!");
 			}
 		
 		return "addlead";
@@ -46,15 +49,22 @@ public class LeadsController {
 	public String fetchLead(ModelMap model) {
 		AuthEmployee current_employee = (AuthEmployee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("lead",leadService.fetchLead(current_employee.getEmployee_id()));
+		model.addAttribute("status",statusService.getAllStatus());
 		return "fetchlead";
 	}
 	
-	@RequestMapping(value = "/leads/notinterested",method=RequestMethod.GET)
+	@RequestMapping(value = "/leads/status",method=RequestMethod.POST)
 	@ResponseBody
-	public boolean changeLeadStatus(){
-		String status = "not interested";
-		AuthEmployee current_employee = (AuthEmployee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return leadService.changeStatus(current_employee.getEmployee_id(),status);
+	public Map<String, String> changeLeadStatus(@RequestBody Remark remark){
+		HashMap<String, String> map = new HashMap<>();
+		if(leadService.changeStatus(remark)) {
+			map.put("status", "success");     
+	        return map;
+		}else {
+			map.put("status", "error");     
+	        return map;
+		}
+		
 	}
 	@RequestMapping(value = "/leads/delete/{id}",method=RequestMethod.GET)
 	@ResponseBody

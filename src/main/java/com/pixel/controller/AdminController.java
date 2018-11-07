@@ -68,11 +68,9 @@ public class AdminController {
 		DataTableRequest<Leads> dataTableInRQ = new DataTableRequest<Leads>(request);
 		PaginationCriteria pagination = dataTableInRQ.getPaginationRequest();
 		
-		String baseQuery = "SELECT * , (SELECT COUNT(1) FROM leads) as total_records FROM leads ";
+		String baseQuery = "SELECT leads.lead_id,leads.name,leads.mobile,leads.last_updated_date,leads.creation_date,leads.employee_id,status.name as status  , (SELECT COUNT(1) FROM leads) as total_records FROM leads INNER JOIN status ON  leads.status_id = status.id ";
 		String paginatedQuery = AppUtil.buildPaginatedQuery(baseQuery, pagination);
-		
-		System.out.println(paginatedQuery);
-		
+			
 		Query query = entityManager.createNativeQuery(paginatedQuery, LeadsModel.class);
 		
 		@SuppressWarnings("unchecked")

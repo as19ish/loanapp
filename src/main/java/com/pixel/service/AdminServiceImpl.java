@@ -12,7 +12,7 @@ import com.pixel.bean.Employee;
 import com.pixel.dao.AdminDao;
 
 @Component
-public class AdminServiceImp implements AdminService {
+public class AdminServiceImpl implements AdminService {
 	
 	
 	@Autowired

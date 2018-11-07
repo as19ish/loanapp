@@ -27,10 +27,10 @@ public class Leads {
 	private Date creation_date;
 	
 	@Column(name = "lastUpdatedDate")
-	private Date last_update_date;
+	private Date last_updated_date;
 	
 	@Column(name = "STATUS")
-	private String status;
+	private int status;
 	
 	@Column(name = "employeeID")
 	private Long employee_id;
@@ -68,18 +68,18 @@ public class Leads {
 	}
 
 	public Date getLastUpdatedDate() {
-		return last_update_date;
+		return last_updated_date;
 	}
 
 	public void setLastUpdatedDate(Date lastUpdatedDate) {
-		this.last_update_date = lastUpdatedDate;
+		this.last_updated_date = lastUpdatedDate;
 	}
 
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

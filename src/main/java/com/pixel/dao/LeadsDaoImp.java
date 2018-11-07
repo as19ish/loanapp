@@ -3,6 +3,7 @@ package com.pixel.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.pixel.bean.InterestedLead;
+import com.pixel.bean.Remark;
 import com.pixel.excel.Lead;
 import com.pixel.util.AppUtil;
 
@@ -25,13 +27,10 @@ public class LeadsDaoImp implements LeadsDao {
 	public boolean addLead(Lead lead) {
 		
 		boolean isAdded = false;
-		String query = "INSERT INTO leads (name ,mobile,creation_date,last_updated_date,status)" + " VALUES (?, ?,?,?,?)";
-		// define query arguments
-		Object[] params = new Object[] { lead.getName().toUpperCase(),lead.getMobile(),lead.getCreation_date(),lead.getLast_updated_date(),lead.getStatus() };
-		// define SQL types of the arguments
-		int[] types = new int[] { Types.VARCHAR, Types.VARCHAR ,Types.TIMESTAMP,Types.TIMESTAMP,Types.VARCHAR};
+		String query = "INSERT IGNORE INTO leads (name ,mobile,creation_date,last_updated_date,status_id)" + " VALUES (?, ?,?,?,(SELECT id from status where name = 'new'))";
+		Object[] params = new Object[] { lead.getName().toUpperCase(),lead.getMobile(),lead.getCreation_date(),lead.getLast_updated_date() };
+		int[] types = new int[] { Types.VARCHAR, Types.VARCHAR ,Types.TIMESTAMP,Types.TIMESTAMP};
 		int row = jdbcTemplate.update(query, params, types);
-		System.out.println(row + " row inserted.");
 		if (row == 1) {
 			isAdded = true;
 		}
@@ -44,26 +43,26 @@ public class LeadsDaoImp implements LeadsDao {
 		
 		try {
 			if (this.checkAssigned(employee_id)) {
-				String query = "SELECT * FROM leads WHERE employee_id = ? and status = 'new'";
+				String query = "SELECT * FROM leads WHERE employee_id = ? and status_id = (SELECT id from status where name = 'new')";
 				lead = jdbcTemplate.queryForObject(query,new Object[]{employee_id}, new LeadRowMapper());
 			}else {
-				String query = "SELECT * FROM `leads` WHERE assigned = false and status = 'new' ORDER BY `leads`.`lead_id` DESC limit 1";
+				String query = "SELECT * FROM `leads` WHERE assigned = false and status_id = (SELECT id from status where name = 'new') ORDER BY `leads`.`lead_id` DESC limit 1";
 				lead = jdbcTemplate.queryForObject(query, new LeadRowMapper());
 				this.setAssigned(lead.getLead_id(),employee_id);
 				
 			}
 			
 		} catch (Exception e) {
-            //exception throws when email id does not exists
+            e.printStackTrace();
 		}
 		return lead;
 				
 	}
 	@Override
-	public boolean changeStatus(Long employee_id,String status) {
+	public boolean changeStatus(Remark remark) {
 		
-		String query = "UPDATE `leads` SET `status` = ? WHERE employee_id = ? and status = 'new'";
-		int row = jdbcTemplate.update(query, new Object[]{status,employee_id});
+		String query = "UPDATE `leads` SET `status_id` = ?,`remark`=?,last_updated_date = ? WHERE employee_id = ? and status_id = (SELECT id from status where name = 'new')";
+		int row = jdbcTemplate.update(query, new Object[]{remark.getStatus_id(),remark.getRemark(),new Date(),AppUtil.getEmployeeId()});
 		if (row == 1) {
 			return true;
 		}
@@ -84,8 +83,8 @@ public class LeadsDaoImp implements LeadsDao {
 	}
 	@Override
 	public boolean addToIntrested(InterestedLead lead) {
-		String query = "UPDATE `leads` SET `status`='interested',`email` = ? ,`company`= ?,`salary` = ?,`alternate_mobile`=? WHERE `leads`.`lead_id` = ?";
-		jdbcTemplate.update(query, new Object[]{lead.getEmail(),lead.getCompany(),lead.getSalary(),lead.getAlternate_mobile(),lead.getLead_id()});
+		String query = "UPDATE `leads` SET `status_id`=(SELECT id from status where name = 'interested'),`email` = ? ,`company`= ?,`salary` = ?,`last_updated_date`=?,`alternate_mobile`=? WHERE `leads`.`lead_id` = ?";
+		jdbcTemplate.update(query, new Object[]{lead.getEmail(),lead.getCompany(),lead.getSalary(),lead.getLast_updated_date(),lead.getAlternate_mobile(),lead.getLead_id()});
 		return true;
 	}
 	
@@ -95,11 +94,12 @@ public class LeadsDaoImp implements LeadsDao {
 		try {
 			
 		    if(AppUtil.hasRole("admin")) {
-		    	String query = "SELECT * FROM leads WHERE  status = 'interested'";
+		    	String query = "SELECT leads.name,leads.mobile,leads.last_updated_date,leads.creation_date,status.name as status from leads inner join status on leads.status_id = status.id where status.name = 'interested'";
 			    List<Lead> leads = jdbcTemplate.query(query, new BeanPropertyRowMapper<Lead>(Lead.class));
 			    return leads;
 	     	}else {
-	     		String query = "SELECT * FROM leads WHERE  status = 'interested' and employee_id = ?";
+	     		
+	     		String query = "SELECT leads.name,leads.mobile,leads.last_updated_date,leads.creation_date,status.name as status from leads inner join status on leads.status_id = status.id where status.name = 'interested' and leads.employee_id = ?";
 	     		List<Lead> leads = jdbcTemplate.query(query,new Object[]{AppUtil.getEmployeeId()}, new BeanPropertyRowMapper<Lead>(Lead.class));
 	     		return leads;
 		   }
@@ -119,8 +119,7 @@ public class LeadsDaoImp implements LeadsDao {
 	}
 	
 	private boolean checkAssigned(Long employee_id) {
-		String query = "SELECT COUNT(*) FROM leads WHERE employee_id = ? and status = 'new' ";
-		System.out.println(jdbcTemplate.queryForObject(query, new Object[]{employee_id}, Integer.class));
+		String query = "SELECT COUNT(*) FROM leads WHERE employee_id = ? and status_id = (SELECT id from status where name = 'new') ";
 		if(jdbcTemplate.queryForObject(query, new Object[]{employee_id}, Integer.class) > 0) {
 			return true;
 		}
@@ -139,7 +138,6 @@ public class LeadsDaoImp implements LeadsDao {
 			lead.setMobile(rs.getString("mobile"));
 			lead.setCreation_date( rs.getDate("creation_date"));
 			lead.setLast_updated_date(rs.getDate("last_updated_date"));
-			lead.setStatus(rs.getString("status"));
 			lead.setEmployee_id(new Long(rs.getInt("employee_id")));
 			return lead;
 		}

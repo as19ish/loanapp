@@ -19,7 +19,7 @@ public class EloanDaoImp implements EloanDao {
 	public boolean create(InterestedLead lead) {
 		
 	
-		      String sql = "INSERT INTO `eloans` ( `leads_id`, `type`, `amount`, `emi`, `company`) VALUES ( ?,?,?,?,?)";
+		      String sql = "INSERT INTO `eloans` ( `leads_id`, `type`, `amount`, `emi`, `company`,`tenure`,`repayment`) VALUES ( ?,?,?,?,?,?,?)";
               List<Eloan> eloans = lead.getEloan();
 			  jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 
@@ -31,6 +31,8 @@ public class EloanDaoImp implements EloanDao {
 						ps.setString(3,eloan.getAmount());
 						ps.setString(4,eloan.getEmi());
 						ps.setString(5, eloan.getCompany());
+						ps.setInt(6,eloan.getTenure());
+						ps.setInt(7, eloan.getRepayment());
 					}
 
 					@Override

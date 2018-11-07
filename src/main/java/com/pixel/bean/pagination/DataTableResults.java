@@ -5,12 +5,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * The Class DataTableResults.
- *
- * @author pavan.solapure
- * @param <T> the generic type
- */
+
 public class DataTableResults<T> {
 	
 	/** The draw. */

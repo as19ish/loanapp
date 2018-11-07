@@ -6,18 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.pixel.bean.InterestedLead;
+import com.pixel.bean.Remark;
 import com.pixel.dao.EloanDao;
+import com.pixel.dao.EcardDao;
 import com.pixel.dao.LeadsDao;
 import com.pixel.excel.Lead;
 
 @Component
-public class LeadServiceImp implements LeadService {
+public class LeadServiceImpl implements LeadService {
 	
 	@Autowired
 	private LeadsDao leadDao;
 	
 	@Autowired
 	private EloanDao eloanDao;
+	
+	@Autowired
+	private EcardDao ecardDao;
 	
 
 	@Override
@@ -34,8 +39,8 @@ public class LeadServiceImp implements LeadService {
 	}
 	
 	@Override
-	public boolean changeStatus(Long employee_id,String status) {
-		return leadDao.changeStatus(employee_id,status);
+	public boolean changeStatus(Remark remark) {
+		return leadDao.changeStatus(remark);
 		
 	}
 
@@ -50,6 +55,7 @@ public class LeadServiceImp implements LeadService {
 	public boolean addToInterested(InterestedLead lead) {
 		leadDao.addToIntrested(lead);
 		eloanDao.create(lead);
+		ecardDao.create(lead);
 		return true;
 	}
 
