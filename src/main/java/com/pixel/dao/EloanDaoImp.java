@@ -6,11 +6,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.pixel.bean.Eloan;
 import com.pixel.bean.InterestedLead;
+
 @Component
 public class EloanDaoImp implements EloanDao {
 	@Autowired
@@ -19,7 +21,7 @@ public class EloanDaoImp implements EloanDao {
 	public boolean create(InterestedLead lead) {
 		
 	
-		      String sql = "INSERT INTO `eloans` ( `leads_id`, `type`, `amount`, `emi`, `company`,`tenure`,`repayment`) VALUES ( ?,?,?,?,?,?,?)";
+		      String sql = "INSERT INTO `eloans` ( `lead_id`, `type`, `amount`, `emi`, `company`,`tenure`,`repayment`) VALUES ( ?,?,?,?,?,?,?)";
               List<Eloan> eloans = lead.getEloan();
 			  jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 
@@ -41,6 +43,12 @@ public class EloanDaoImp implements EloanDao {
 					}
 				});
 				return true;
+	}
+	@Override
+	public List<Eloan> get(Long lead_id) {
+		String query = "SELECT * FROM eloans WHERE lead_id = ?";
+		List<Eloan> result = jdbcTemplate.query(query,new Object[]{lead_id}, new BeanPropertyRowMapper<Eloan>(Eloan.class));
+		return result;
 	}
 }
 

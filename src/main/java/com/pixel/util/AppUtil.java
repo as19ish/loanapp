@@ -33,6 +33,7 @@ public class AppUtil {
 
         return false;
     }
+	
 	public static long getEmployeeId() {
 		AuthEmployee current_employee = (AuthEmployee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return current_employee.getEmployee_id();
@@ -43,6 +44,7 @@ public class AppUtil {
 		}
 		return false;
 	}
+	
 	
 
 	public static boolean isObjectEmpty(Object object) {

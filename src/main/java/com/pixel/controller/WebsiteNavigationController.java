@@ -20,8 +20,7 @@ public class WebsiteNavigationController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(ModelMap model) {
 		if(AppUtil.hasRole("admin")) {
-		model.addAttribute("emplist",adminService.getEmployees());
-		return "index";
+			return "redirect:/ileads";
 		}else {
 			return "redirect:/fetch-lead";
 		}
@@ -48,6 +47,15 @@ public class WebsiteNavigationController {
 	public String getInterestedLead(ModelMap model) {
 		model.addAttribute("ileads",leadService.getInterestedLead());
 		return "ileads";
+	}
+	@RequestMapping(value = "/leads", method = RequestMethod.GET)
+	public String getLead() {
+		return "index";
+	}
+	@RequestMapping(value = "/other-leads", method = RequestMethod.GET)
+	public String getOtherLead(ModelMap model) {
+		model.addAttribute("ileads",leadService.getOtherLead());
+		return "otherlead";
 	}
 	
 }

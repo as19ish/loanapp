@@ -19,7 +19,9 @@ import com.pixel.bean.InterestedLead;
 import com.pixel.bean.Remark;
 import com.pixel.excel.Lead;
 import com.pixel.service.LeadService;
+import com.pixel.service.MoreDeatailService;
 import com.pixel.service.StatusService;
+import com.pixel.util.AppUtil;
 
 
 
@@ -31,6 +33,9 @@ public class LeadsController {
 	
 	@Autowired
 	private StatusService statusService;
+	
+	@Autowired
+	private MoreDeatailService moreDetailService;
 	
 	@RequestMapping(value = "/add-leads", method = RequestMethod.POST)
 	public String addLead(ModelMap model, @ModelAttribute("lead") Lead lead) {
@@ -80,4 +85,22 @@ public class LeadsController {
         map.put("status", "success");     
         return map;
     }
+	@RequestMapping(value="leads/show/{id}",method=RequestMethod.GET)
+	public String show(@PathVariable("id") Long id,ModelMap model) {
+		Lead lead = leadService.getLead(id);
+		if(!AppUtil.hasRole("admin") && lead.getEmployee_id() != AppUtil.getEmployeeId()) {
+			return "404";
+		}
+		model.addAttribute("lead",lead );
+		model.addAttribute("eloan", moreDetailService.getEloan(id));
+		model.addAttribute("ecard", moreDetailService.getEcard(id));
+		if(lead.getOccupation_id() == 1) {
+			model.addAttribute("job", moreDetailService.getJobDetails(id));
+		}else {
+			model.addAttribute("business", moreDetailService.getBussinessDetails(id));
+		}
+		return "lead";
+		
+	}
+	
 }

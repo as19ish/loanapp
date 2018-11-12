@@ -190,7 +190,7 @@
 			 <%@ include file="/WEB-INF/layouts/footer.jsp" %>
 
 			<!-- end::Footer -->
-		</div>
+		
 
 		<!-- end:: Page -->
 

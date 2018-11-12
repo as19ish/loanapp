@@ -3,15 +3,21 @@ package com.pixel.bean;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class InterestedLead {
 	
 	private long lead_id;
 	private String email;
 	private String mobile;
-	private String company;
-	private Date last_updated_date = new Date();
-	private String salary;
 	private String alternate_mobile;
+	private Date last_updated_date = new Date();
+	private int occupation_id;
+	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm", timezone="IST")
+	private Date next_call;
+	private String remark;
+	private Business business;
+	private Job job;
 	private List<Eloan> eloan;
 	private List<Ecard> ecard;
 	
@@ -33,29 +39,47 @@ public class InterestedLead {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
+	public String getAlternate_mobile() {
+		return alternate_mobile;
+	}
+	public void setAlternate_mobile(String alternate_mobile) {
+		this.alternate_mobile = alternate_mobile;
+	}
 	public Date getLast_updated_date() {
 		return last_updated_date;
 	}
 	public void setLast_updated_date(Date last_updated_date) {
 		this.last_updated_date = last_updated_date;
 	}
-	public String getCompany() {
-		return company;
+	public int getOccupation_id() {
+		return occupation_id;
 	}
-	public void setCompany(String company) {
-		this.company = company;
+	public void setOccupation_id(int occupation_id) {
+		this.occupation_id = occupation_id;
 	}
-	public String getSalary() {
-		return salary;
+	public Date getNext_call() {
+		return next_call;
 	}
-	public void setSalary(String salary) {
-		this.salary = salary;
+	public void setNext_call(Date next_call) {
+		this.next_call = next_call;
 	}
-	public String getAlternate_mobile() {
-		return alternate_mobile;
+	public String getRemark() {
+		return remark;
 	}
-	public void setAlternate_mobile(String alternate_mobile) {
-		this.alternate_mobile = alternate_mobile;
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public Business getBusiness() {
+		return business;
+	}
+	public void setBusiness(Business business) {
+		this.business = business;
+	}
+	public Job getJob() {
+		return job;
+	}
+	public void setJob(Job job) {
+		this.job = job;
 	}
 	public List<Eloan> getEloan() {
 		return eloan;
@@ -69,6 +93,8 @@ public class InterestedLead {
 	public void setEcard(List<Ecard> ecard) {
 		this.ecard = ecard;
 	}
+	
+		
 	
 
 }

@@ -7,7 +7,6 @@ public class Ecard {
 	private String issuing_bank;
 	private int card_limit;
 	private int card_used;
-	
 	public Long getId() {
 		return id;
 	}
@@ -26,17 +25,19 @@ public class Ecard {
 	public void setIssuing_bank(String issuing_bank) {
 		this.issuing_bank = issuing_bank;
 	}
-	public int getLimit() {
+	public int getCard_limit() {
 		return card_limit;
 	}
-	public void setLimit(int limit) {
-		this.card_limit = limit;
+	public void setCard_limit(int card_limit) {
+		this.card_limit = card_limit;
 	}
-	public int getUsed() {
+	public int getCard_used() {
 		return card_used;
 	}
-	public void setUsed(int card_used) {
+	public void setCard_used(int card_used) {
 		this.card_used = card_used;
 	}
-
+	
+	
+	
 }

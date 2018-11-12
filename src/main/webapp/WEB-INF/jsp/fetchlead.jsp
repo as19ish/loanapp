@@ -30,7 +30,6 @@
 		<!--end:: Global Mandatory Vendors -->
 
 		<!--begin:: Global Optional Vendors -->
-		<link href="vendors/tether/dist/css/tether.css" rel="stylesheet" type="text/css" />
 		<link href="vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
 		<link href="vendors/bootstrap-datetime-picker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
 		<link href="vendors/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
@@ -38,22 +37,8 @@
 		<link href="vendors/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
 		<link href="vendors/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet" type="text/css" />
 		<link href="vendors/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/select2/dist/css/select2.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/nouislider/distribute/nouislider.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/owl.carousel/dist/assets/owl.carousel.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/owl.carousel/dist/assets/owl.theme.default.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/dropzone/dist/dropzone.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/summernote/dist/summernote.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/bootstrap-markdown/css/bootstrap-markdown.min.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/animate.css/animate.css" rel="stylesheet" type="text/css" />
 		<link href="vendors/toastr/build/toastr.css" rel="stylesheet" type="text/css" />
 		<link href="vendors/jstree/dist/themes/default/style.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/morris.js/morris.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/chartist/dist/chartist.min.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-		<link href="vendors/socicon/css/socicon.css" rel="stylesheet" type="text/css" />
 		<link href="vendors/vendors/line-awesome/css/line-awesome.css" rel="stylesheet" type="text/css" />
 		<link href="vendors/vendors/flaticon/css/flaticon.css" rel="stylesheet" type="text/css" />
 		<link href="vendors/vendors/metronic/css/styles.css" rel="stylesheet" type="text/css" />
@@ -79,12 +64,10 @@
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<style>
-		  #ui-id-1{
+		  .ui-menu{
 		    z-index:9999;
 		  }
-		  #ui-id-2{
-		    z-index:9999;
-		  }
+		  
 		  em{
 	         color: rgba(232, 5, 5, 0.83);	  
 		  }
@@ -222,13 +205,9 @@
 <div class="modal fade" id="interested">
     <div class="modal-dialog modal-lg modal-dialog-centered" style="max-width:85% !important">
       <div class="modal-content">
-      
-       
-        
-        <!-- Modal body -->
-        <div class="modal-body" style="padding-left:12%;padding-top:7%;">
+         <div class="modal-body" style="padding-left:12%;padding-top:7%;">
             <div class="form-body">
-                             <h3 class="form-section" style="margin-left:1.4%" >Personal Info</h3>
+                             <h3 class="form-section" style="margin-left:1.4%;margin-top:2%" >Personal Information</h3>
                              <form id="pinfo">
                              <div class="row">
                                  <div class="col-md-6">
@@ -258,51 +237,109 @@
                                      <div class="form-group">
                                          <label class="control-label col-md-6">Email</label>
                                          <div class="col-md-9">
-                                             <input type="email" class="form-control" name="email" id="email" placeholder="ex: user@gmsil.com" >
+                                             <input type="email" class="form-control" name="email" id="email" placeholder="Ex: user@gmail.com" >
                                             
                                          </div>
                                      </div>
                                  </div>
                                  <!--/span-->
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Alternate Mobile No</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control" name="alternate_mobile" id="alternate_mobile" placeholder="Ex: 89798635214" >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                             </div>
+                             
+                             <input type="hidden" name="lead_id" value="${lead.lead_id}" >
+                           </form>  
+                             <h3 class="form-section" style="margin-left:1.4%;margin-top:1%">Occupation Details</h3>
+                                <div class="row" style="margin-left: 15px;">
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <div class="form-check-inline">
+								     <label class="form-check-label" for="job">
+								       <input type="radio" class="form-check-input" id="job" name="occupation" value="job" checked>Job
+								     </label>
+								   </div>
+								   <div class="form-check-inline">
+								     <label class="form-check-label" for="business">
+								       <input type="radio" class="form-check-input" id="business" name="occupation" value="job" >Business
+								     </label>
+								   </div>
+                                     </div>
+                                   </div> 
+								</div>
+						 <form id="job_form" style="display:block;">
+                             <div class="row">
                                  <div class="col-md-6">
                                      <div class="form-group">
                                          <label class="control-label col-md-6">Company Name</label>
                                          <div class="col-md-9">
-                                             <input id="company" type="text" class="form-control" name="company" id="company" placeholder="ex: g.." >
+                                             <input id="company" type="text" class="form-control" name="company_name" id="company" placeholder="Ex: g.." data-rule-no_special_characters="true" data-msg-no_special_characters="no special characters allowed" data-rule-maxlength="64" data-msg-maxlength="Firm/Company Name exceeded the maximum length"  data-msg="Please fill Company Name" required >
                                             
                                          </div>
                                      </div>
                                  </div>
                                  <!--/span-->
-                             </div>
-                             <!--/row-->
-                             <!--/row-->
-                             <div class="row">
                                  <div class="col-md-6">
                                      <div class="form-group">
                                          <label class="control-label col-md-6">Monthly Salary</label>
                                          <div class="col-md-9">
-                                             <input type="text" class="form-control" name="salary" id="salary" placeholder="ex: 40000" >
+                                             <input type="text" class="form-control" name="salary" id="salary" placeholder="Ex: 40000"data-rule-digits="true" data-msg-digits="Please Enter Valid Amount in digits" data-rule-minlength="4" data-msg-minlength="Enter Valid Amount " data-rule-maxlength="10" data-msg-maxlength="Please Enter Valid Amount (exceeded limit)" data-msg="Please fill Annual Revenue" required >
                                             
                                          </div>
                                      </div>
                                  </div>
-                                 <!--/span-->
-                                <div class="col-md-6">
-                                     <div class="form-group">
-                                         <label class="control-label col-md-6">Alternate Mobile No</label>
-                                         <div class="col-md-9">
-                                             <input type="text" class="form-control" name="alternate_mobile" id="alternate_mobile" placeholder="ex: 89798635214" >
-                                            
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <!--/span-->
+
                              </div>
-                             <!--/row-->
+                                                                               
                              <input type="hidden" name="lead_id" value="${lead.lead_id}" >
                            </form>  
-                             <h3 class="form-section" style="margin-left:1.4%">Existing Loan Details</h3>
+                            <form id="business_form" style="display:none;">
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Name</label>
+                                         <div class="col-md-9">
+                                             <input id="company" type="text" class="form-control" name="name"  placeholder="Ex..Shri Ram Trader" data-rule-no_special_characters="true" data-msg-no_special_characters="no special characters allowed" data-rule-maxlength="64" data-msg-maxlength="Bussiness Name exceeded the maximum length"  data-msg="Please fill Bussiness Name" required >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <!--/span-->
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Firm/Company</label>
+                                         <div class="col-md-9">
+                                             <input type="text" class="form-control" name="firm" id="salary" placeholder="Ex..Firm" data-rule-no_special_characters="true" data-msg-no_special_characters="no special characters allowed" data-rule-maxlength="64" data-msg-maxlength="Firm/Company Name exceeded the maximum length"  data-msg="Please fill Bussiness Type" required >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+
+                             </div>
+                               <div class="row">
+                                 <div class="col-md-6">
+                                     <div class="form-group">
+                                         <label class="control-label col-md-6">Annual Revenue</label>
+                                         <div class="col-md-9">
+                                             <input  type="text" class="form-control" name="revenue"  placeholder="Ex: 100000" data-rule-digits="true" data-msg-digits="Please Enter Valid Amount in digits" data-rule-minlength="4" data-msg-minlength="Enter Valid Amount " data-rule-maxlength="10" data-msg-maxlength="Please Enter Valid Amount (exceeded limit)" data-msg="Please fill Annual Revenue" required >
+                                            
+                                         </div>
+                                     </div>
+                                 </div>
+                                 
+
+                             </div>
+                                                                               
+                             <input type="hidden" name="lead_id" value="${lead.lead_id}" >
+                           </form> 
+                             <h3 class="form-section" style="margin-left:1.4%;margin-top:2%">Existing Loan Details</h3>
                              <!--/row-->
                          <form id="eloan" >
 							  <fieldset>
@@ -329,7 +366,7 @@
                                      <div class="form-group">
                                          <label class="control-label col-md-6">Amount</label>
                                          <div class="col-md-9">
-                                             <input type="text" class="form-control" name="amount" placeholder="ex:10000" data-rule-digits="true" data-msg-digits="Please Enter Valid Amount in digits" data-rule-minlength="4" data-msg-minlength="Enter Valid Amount" data-rule-maxlength="10" data-msg-maxlength="Please Enter Valid Amount" data-msg="Please fill Amount" required >
+                                             <input type="text" class="form-control" name="amount" placeholder="ex:10000" data-rule-digits="true" data-msg-digits="Please Enter Valid Amount in digits" data-rule-minlength="4" data-msg-minlength="Enter Valid Amount" data-rule-maxlength="10" data-msg-maxlength="Please Enter Valid Amount (exceeded limit)" data-msg="Please fill Amount" required >
                                             
                                          </div>
                                      </div>
@@ -342,7 +379,7 @@
                                      <div class="form-group">
                                          <label class="control-label col-md-6">Emi</label>
                                          <div class="col-md-9">
-                                             <input type="text" class="form-control" name="emi" placeholder="ex: 3000" data-rule-digits="true" data-msg-digits="Please Enter Valid Amount in digits" data-rule-minlength="2" data-msg-minlength="Enter Valid Amount" data-rule-maxlength="8" data-msg-maxlength="Please Enter Valid Amount" data-msg="Please fill Amount" required >
+                                             <input type="text" class="form-control" name="emi" placeholder="ex: 3000" data-rule-digits="true" data-msg-digits="Please Enter Valid Amount in digits" data-rule-minlength="2" data-msg-minlength="Enter Valid Amount" data-rule-maxlength="8" data-msg-maxlength="Please Enter Valid Amount (exceeded limit)" data-msg="Please fill Amount" required >
                                             
                                          </div>
                                      </div>
@@ -412,7 +449,7 @@
 							    
 							  </fieldset>
 							</form>
-							<h3 class="form-section" style="margin-left:1.4%">Existing Credit Card Details</h3>
+							<h3 class="form-section" style="margin-left:1.4%;margin-top:2%">Existing Credit Card Details</h3>
                              <!--/row-->
                          <form id="ecard" >
 							  <fieldset>
@@ -487,9 +524,32 @@
 							    
 							  </fieldset>
 							</form>
-                             
-                             
-                         </div>
+                            <h3 class="form-section" style="margin-left:1.4%;margin-top:2%" >Next Call Date And Remark</h3>
+                             <form id="next_call_form">
+                               <div class="row">
+	                                  <div class="col-md-6">
+	                                     <div class="form-group">
+	                                         <label class="control-label col-md-6">Next Call Date</label>
+	                                         <div class="col-md-12">
+	                                             <input  class="form-control" id="date" data-msg="Please Select Next Call Date And Time" required >
+	                                          <span class="add-on">
+											      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+											      </i>
+											    </span>  
+	                                         </div>
+	                                     </div>
+	                                 </div>
+	                                 <div class="col-md-6">
+	                                     <div class="form-group">
+	                                         <label class="control-label col-md-6">Remark</label>
+	                                         <div class="col-md-9">
+	                                            <textarea class="form-control" rows="1" name="remark" id="next_call_remark"></textarea>
+	                                         </div>
+	                                     </div>
+	                                 </div>
+                                </div> 
+                               </form>                     
+                          </div>
         </div>
         
         <!-- Modal footer -->
@@ -633,7 +693,6 @@
 		<script src="vendors/es6-promise-polyfill/promise.min.js" type="text/javascript"></script>
 		<script src="vendors/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
 		<script src="vendors/js/framework/components/plugins/base/sweetalert2.init.js" type="text/javascript"></script>
-
 		<!--end:: Global Optional Vendors -->
 
 		<!--begin::Global Theme Bundle -->
@@ -690,9 +749,7 @@
 	    		  initEmpty: true,
 	    		 
 	    		  show: function () {
-	    			  $( ".form-control.issuing_bank" ).autocomplete({
-	    			      source: banks
-	    			    });
+	    			  
 	                  $(this).slideDown();
 	              },
 	              hide: function (deleteElement) {
@@ -701,15 +758,18 @@
 	                      $(this).slideUp(deleteElement);
 	                  }
 	              },
-	              isFirstItemUndeletable: true
-	       }
-	              );
+	              
+	       });
 	       $('#repeater-ecard').repeater({
 	    	   defaultValues : {
 	    		 lead_id : '${lead.lead_id}'  
 	    	   },
 	    	   initEmpty: true,
 	    	   show: function(){
+	    		   
+	    		   $( ".form-control.issuing_bank" ).autocomplete({
+	    			      source: banks
+	    			    });
 	    		   
 	    		   $(this).slideDown();
 	    	   },
@@ -743,36 +803,48 @@
 			 
 			 });
 		
-			    $( "#company" ).autocomplete({
-					source : '${pageContext.request.contextPath }/company/search'
-				});
+		    $( "#company" ).autocomplete({
+				source : '${pageContext.request.contextPath }/company/search'
+			});
 			 
 		   
+		   var validation_options={
+			    	  errorElement: "em",
+			    	  highlight: function(element, errorClass, validClass) {
+						    
+							 $(element).css({"border": "1px solid rgba(232, 5, 5, 0.4)"})
+						 },
+			    	 unhighlight:function(element, errorClass, validClass) {
+								 $(element).css({"border": "1px solid #e2e2e2"})
+							 },
+			      };
+	      var validator_pinfo = $( "#pinfo" ).validate();
+	      var validator_eloan = $("#eloan").validate(validation_options);
+	      var validator_ecard = $("#ecard").validate(validation_options);
+	      var validator_job = $("#job_form").validate(validation_options);
+	      var validator_business = $('#business_form').validate(validation_options);
+	      var validator_next_call_form = $("#next_call_form").validate(validation_options);
+		    $('#job').click(function(){
+			   $('#business_form').hide();
+			   $('#job_form').show();
+			   		   
+		   });
+		   $('#business').click(function(){
+			   $('#job_form').hide();
+			   $('#business_form').show();
+			   	   
+			   			   
+		   });
 		   $("#submit").click(function(e){
 			  
 			      e.preventDefault();
-			      var validator = $( "#pinfo" ).validate();
-			      var validator2 = $("#eloan").validate({
-			    	  errorElement: "em",
-			    	  highlight: function(element, errorClass, validClass) {
-						    
-							 $(element).css({"border": "1px solid rgba(232, 5, 5, 0.4)"})
-						 },
-			    	 unhighlight:function(element, errorClass, validClass) {
-								 $(element).css({"border": "1px solid #e2e2e2"})
-							 },
-			      });
-			      var validator3 = $("#ecard").validate({
-			    	  errorElement: "em",
-			    	  highlight: function(element, errorClass, validClass) {
-						    
-							 $(element).css({"border": "1px solid rgba(232, 5, 5, 0.4)"})
-						 },
-			    	 unhighlight:function(element, errorClass, validClass) {
-								 $(element).css({"border": "1px solid #e2e2e2"})
-							 },
-			      });
-			      if(!validator.form() || !validator2.form() || !validator3.form()){
+			      validator_pinfo.form();
+			      validator_eloan.form();
+			      validator_ecard.form();
+			      validator_job.form();
+			      validator_business.form();
+			      validator_next_call_form.form();
+			      if(!validator_pinfo.form() || !validator_eloan.form() || !validator_ecard.form() || !validator_next_call_form.form()){
 			    	  return false;  
 			      } 
 			      $('input').next().remove();
@@ -781,18 +853,43 @@
 			      for (var i = 0; i < formArray.length; i++){
 			    	  lead[formArray[i]['name']] = formArray[i]['value'];
 			      }
-			      try {
-			    	  lead['eloan'] =  $('#repeater-eloan').repeaterVal()["eloan"];
+			      if ($("#job").prop("checked")) {
+			    	  if(!validator_job.form()){
+			    		  return false;
+			    	  }
+			    	   lead['occupation_id'] = 1;
+			    	   var job ={};
+			    	   var formArray = $('#job_form').serializeArray();
+			    	   for (var i = 0; i < formArray.length; i++){
+					    	  job[formArray[i]['name']] = formArray[i]['value'];
+					      }
+			    	   lead['job']=job;
+			        	}else{
+			    		if(!validator_business.form()){
+				    		  return false;
+				    	  }
+			    		lead['occupation_id'] = 2;
+			    		var business = {};
+			    		var formArray = $('#business_form').serializeArray();
+			    		for (var i = 0; i < formArray.length; i++){
+			    			business[formArray[i]['name']] = formArray[i]['value'];
+					      }
+			    		lead['business']=business;
+			    		
 			    	}
-			    	catch(err) {
+			        try {
+			    	  lead['eloan'] =  $('#repeater-eloan').repeaterVal()["eloan"];
+			    	}catch(err) {
 			    		lead['eloan'] = [];
 			    	}
-		    	try {
+			    	
+		    	    try {
 			    	  lead['ecard'] =  $('#repeater-ecard').repeaterVal()["ecard"];
-			    	}
-			    	catch(err) {
+			    	}catch(err) {
 			    		lead['ecard'] = [];
 			    	}
+			    	lead['next_call'] = $("#date").val();
+			    	lead['remark'] = $("#next_call_remark").val();
 			     
 			      $.post({
 			         url : 'leads/interested',
@@ -809,7 +906,7 @@
 						  		  },700);
 			        	      setTimeout(function(){
 			        	    	    
-						  			location.reload();
+						  			 location.reload();
 						  		  },1500);
 			             }else{
 			            	 
@@ -852,7 +949,7 @@
 						  		  },700);
 			        	      setTimeout(function(){
 			        	    	    
-						  			location.reload();
+						  		//	location.reload();
 						  		  },1500);
 			             }else{
 			            	 
@@ -867,7 +964,7 @@
 			        	 $("#interested").modal("hide");
 			        	 toastr.error('Error!! Someyhing went wrong  '); 
 			        	 setTimeout(function(){
-					  			location.reload();
+					  			//location.reload();
 					  		  },800);
 			         }
 			      })
@@ -885,18 +982,7 @@
 						required: false,
 						email: true
 					},
-					company: {
-						
-						maxlength: 30,
-						required: true,
-						
-					},
-					salary: {
-						
-						required: true,
-						maxlength: 12,
-						digits: true,
-					},
+					
 					alternate_mobile: {
 						minlength: 10,
 						maxlength: 12,
@@ -909,15 +995,7 @@
 					email: {
 						email: "Please enter valid email"
 					},
-					company: {
-						maxlength: "Please enter valid company name",
-						required: "Required"
-					},
-					salary: {
-						maxlength: "Please enter valid salary",
-						digits: "Only digites allowed",
-						required: "Required"
-					},
+					
 					alternate_mobile: {
 						required: "Required",
 						minlength: "Please Enter valid 10 digit Mobile no",
@@ -935,7 +1013,19 @@
 								 },
 
 			});
+		  
 		   
+		   $(function () { 
+			   var date = new Date();
+			   date.setDate(date.getDate());
+			   $('#date').datetimepicker({ 
+			    startDate: date,
+			    language: 'es',
+			    pickerPosition: "top-left",
+		       
+			   });
+			 });
+
 
 		</script>
 

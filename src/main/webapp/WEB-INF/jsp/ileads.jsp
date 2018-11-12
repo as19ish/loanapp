@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
 
@@ -56,6 +57,11 @@
 		<link rel="shortcut icon" href="assets/demo/media/img/logo/favicon.ico" />
 		<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" type="text/css" />
+		<style>
+		  .more_details{
+		      cursor: pointer;		     
+		  }
+		</style>
 	</head>
 
 	<!-- end::Head -->
@@ -134,9 +140,10 @@
 										                    
 										                    <th>Name</th>
 										                    <th>Mobile</th>
-										                    <th>creationDate</th>
 										                    <th>lastUpdatedDate</th>
+										                    <th>Next Call Date Time</th>
 										                    <th>status</th>
+										                    <th>Employee Name</th>
 										                    <th>Action</th>
 										                </tr>
 									        </thead>
@@ -146,10 +153,11 @@
 								                        
 								                        <td>${temp.name}</td>
 								                        <td>${temp.mobile}</td>
-								                        <td>${temp.creation_date}</td>
-								                        <td>${temp.last_updated_date}</td>
+								                        <td><fmt:formatDate value="${temp.last_updated_date}" pattern="E yyyy.MM.dd 'at' hh:mm:ss a " /></td>
+								                        <td><fmt:formatDate value="${temp.next_call}" pattern="E yyyy.MM.dd 'at' hh:mm:ss a " /></td>
 								                        <td>${temp.status}</td>
-								                        <td>More Details</td>
+								                        <td>${temp.employee_name}</td>
+								                        <td><span class="more_details" data-lead="${temp.lead_id}">More Details</span></td>
 								                        
 								                        
 								                    </tr>
@@ -174,7 +182,7 @@
 			 <%@ include file="/WEB-INF/layouts/footer.jsp" %>
 
 			<!-- end::Footer -->
-		</div>
+		
 
 		<!-- end:: Page -->
 
@@ -218,12 +226,34 @@
 		<!--end::Page Vendors -->
 
 		<!--begin::Page Scripts -->
-		<script src="assets/app/js/dashboard.js" type="text/javascript"></script>
+
 		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 		<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" type="text/javascript"></script>
 		
+        <script>
+           $('.more_details').click(function(){
+        	   window.location.href = "leads/show/"+this.getAttribute("data-lead");
+           });
+           $.fn.dataTableExt.oSort['time-date-sort-pre'] = function(value) {      
+        	    return Date.parse(value);
+        	};
+        	$.fn.dataTableExt.oSort['time-date-sort-asc'] = function(a,b) {      
+        	    return a-b;
+        	};
+        	$.fn.dataTableExt.oSort['time-date-sort-desc'] = function(a,b) {
+        	    return b-a;
+        	};
 
+        	$('#example').DataTable({
+        	    columnDefs : [
+        	        { type: 'time-date-sort', 
+        	          targets: [4],
+        	        }
+        	    ],
+        	    order: [[ 4, "desc" ]]
+        	});
+        </script>
 
 		<!--end::Page Scripts -->
 	</body>

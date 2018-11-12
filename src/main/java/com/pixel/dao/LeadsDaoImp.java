@@ -22,6 +22,15 @@ public class LeadsDaoImp implements LeadsDao {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	
+	@Override
+	public Lead getLead(long lead_id) {
+		String query = "SELECT * FROM leads where lead_id = ? ";
+		return jdbcTemplate.queryForObject(query,new Object[] {lead_id}, new LeadRowMapper());
+		
+	}
+
 
 	@Override
 	public boolean addLead(Lead lead) {
@@ -83,8 +92,8 @@ public class LeadsDaoImp implements LeadsDao {
 	}
 	@Override
 	public boolean addToIntrested(InterestedLead lead) {
-		String query = "UPDATE `leads` SET `status_id`=(SELECT id from status where name = 'interested'),`email` = ? ,`company`= ?,`salary` = ?,`last_updated_date`=?,`alternate_mobile`=? WHERE `leads`.`lead_id` = ?";
-		jdbcTemplate.update(query, new Object[]{lead.getEmail(),lead.getCompany(),lead.getSalary(),lead.getLast_updated_date(),lead.getAlternate_mobile(),lead.getLead_id()});
+		String query = "UPDATE `leads` SET `status_id`=(SELECT id from status where name = 'interested'),`email` = ? ,`occupation_id`= ?,`last_updated_date`=?,`alternate_mobile`=?,`next_call`=?,`remark`=? WHERE `leads`.`lead_id` = ?";
+		jdbcTemplate.update(query, new Object[]{lead.getEmail(),lead.getOccupation_id(),lead.getLast_updated_date(),lead.getAlternate_mobile(),lead.getNext_call(),lead.getRemark(),lead.getLead_id()});
 		return true;
 	}
 	
@@ -94,12 +103,12 @@ public class LeadsDaoImp implements LeadsDao {
 		try {
 			
 		    if(AppUtil.hasRole("admin")) {
-		    	String query = "SELECT leads.name,leads.mobile,leads.last_updated_date,leads.creation_date,status.name as status from leads inner join status on leads.status_id = status.id where status.name = 'interested'";
+		    	String query = "SELECT leads.lead_id,leads.name,leads.mobile,leads.last_updated_date,leads.next_call,status.name as status, employee.name as employee_name from leads inner join status on leads.status_id = status.id INNER JOIN employee on employee.employee_id = leads.employee_id where status.name = 'interested' ORDER BY 'next_call' ASC";
 			    List<Lead> leads = jdbcTemplate.query(query, new BeanPropertyRowMapper<Lead>(Lead.class));
 			    return leads;
 	     	}else {
 	     		
-	     		String query = "SELECT leads.name,leads.mobile,leads.last_updated_date,leads.creation_date,status.name as status from leads inner join status on leads.status_id = status.id where status.name = 'interested' and leads.employee_id = ?";
+	     		String query = "SELECT leads.lead_id,leads.name,leads.mobile,leads.last_updated_date,leads.next_call,status.name as status, employee.name as employee_name from leads inner join status on leads.status_id = status.id INNER JOIN employee on employee.employee_id = leads.employee_id where status.name = 'interested' and leads.employee_id = ?";
 	     		List<Lead> leads = jdbcTemplate.query(query,new Object[]{AppUtil.getEmployeeId()}, new BeanPropertyRowMapper<Lead>(Lead.class));
 	     		return leads;
 		   }
@@ -109,6 +118,29 @@ public class LeadsDaoImp implements LeadsDao {
 		}
 		
 	}
+	
+	@Override
+	public List<Lead> getOtherLead() {
+			
+			try {
+				
+			    if(AppUtil.hasRole("admin")) {
+		    	String query = "SELECT leads.lead_id,leads.name,leads.mobile,leads.last_updated_date,leads.next_call,status.name as status, employee.name as employee_name from leads inner join status on leads.status_id = status.id INNER JOIN employee on employee.employee_id = leads.employee_id where status.name != 'interested' and status.name != 'new' ORDER BY 'next_call' ASC";
+			    List<Lead> leads = jdbcTemplate.query(query, new BeanPropertyRowMapper<Lead>(Lead.class));
+			    return leads;
+	     	}else {
+	     		
+	     		String query = "SELECT leads.lead_id,leads.name,leads.mobile,leads.last_updated_date,leads.next_call,status.name as status, employee.name as employee_name from leads inner join status on leads.status_id = status.id INNER JOIN employee on employee.employee_id = leads.employee_id where status.name != 'interested' and status.name != 'new' and leads.employee_id = ?";
+	     		List<Lead> leads = jdbcTemplate.query(query,new Object[]{AppUtil.getEmployeeId()}, new BeanPropertyRowMapper<Lead>(Lead.class));
+	     		return leads;
+		   }
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
 
 		
 	
@@ -136,13 +168,20 @@ public class LeadsDaoImp implements LeadsDao {
 			lead.setLead_id(new Long(rs.getInt("lead_id")));
 			lead.setName(rs.getString("name"));
 			lead.setMobile(rs.getString("mobile"));
+			lead.setEmail(rs.getString("email"));
+			lead.setAlternate_mobile(rs.getString("alternate_mobile"));
 			lead.setCreation_date( rs.getDate("creation_date"));
 			lead.setLast_updated_date(rs.getDate("last_updated_date"));
 			lead.setEmployee_id(new Long(rs.getInt("employee_id")));
+			lead.setNext_call(rs.getDate("next_call"));
+			lead.setRemark(rs.getString("remark"));
+			lead.setOccupation_id(rs.getInt("occupation_id"));
 			return lead;
 		}
 	}
 
+
+	
 
 	
 

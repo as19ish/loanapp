@@ -14,22 +14,24 @@
 								<i class="m-menu__section-icon flaticon-more-v2"></i>
 							
 							</li>
-							<li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/addemployee'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="addemployee" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-add"></i><span class="m-menu__link-text">Add Employee</span></a></li>
-							<li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/emplist'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="emplist" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Employee List</span></a></li>
+							<li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/addemployee'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/addemployee" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-add"></i><span class="m-menu__link-text">Add Employee</span></a></li>
+							<li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/emplist'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/emplist" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Employee List</span></a></li>
 						  </c:if>
 							<li class="m-menu__section ">
 								<h4 class="m-menu__section-text">Leads</h4>
 								<i class="m-menu__section-icon flaticon-more-v2"></i>
 							</li>
-							 <c:if test="${AppUtil.hasRole('admin')}">
-							<li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/upload-leads'}">m-menu__item--active</c:if>" aria-haspopup="true" m-menu-link-redirect="1"><a href="upload-leads" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-graphic"></i><span class="m-menu__link-text">Upload Leads</span></a></li>
-							<li class="m-menu__item  <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Leads List</span></a></li>
-		                    <li class="m-menu__item  <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/add-leads'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/add-leads" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Add Lead</span></a></li>
-						     </c:if>
+							 <li class="m-menu__item  <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/ileads'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/ileads" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Interested Leads</span></a></li>
+						     <li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/other-leads'}">m-menu__item--active</c:if>" aria-haspopup="true" m-menu-link-redirect="1"><a href="/other-leads" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-graphic"></i><span class="m-menu__link-text">Other Leads</span></a></li>
+							
 						     <c:if test="${AppUtil.hasRole('employee')}">
 						   	<li class="m-menu__item  <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/fetch-lead'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/fetch-lead" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Fetch Lead</span></a></li>
 						     </c:if>
-						    <li class="m-menu__item  <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/ileads'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/ileads" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Interested Leads</span></a></li>
-						     				
+						     <c:if test="${AppUtil.hasRole('admin')}">
+						     <li class="m-menu__item  <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/leads'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="leads" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Leads List</span></a></li>
+		                   	 <li class="m-menu__item  <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/add-leads'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/add-leads" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Add Lead</span></a></li>
+						     <li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/upload-leads'}">m-menu__item--active</c:if>" aria-haspopup="true" m-menu-link-redirect="1"><a href="/upload-leads" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-graphic"></i><span class="m-menu__link-text">Upload Leads</span></a></li>
+							 </c:if>
+						   				
 						</ul>
 </div>
