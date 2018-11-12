@@ -17,7 +17,7 @@ public class LeadsModel {
 	private Date creation_date;
 	private Date last_updated_date;
 	private String status;
-	private Long employee_id;
+	private Date next_call;
 
 	private Integer totalRecords;
 
@@ -64,6 +64,8 @@ public class LeadsModel {
 		this.last_updated_date = lastUpdatedDate;
 	}
 
+	
+
 	public String getStatus() {
 		return status;
 	}
@@ -72,12 +74,14 @@ public class LeadsModel {
 		this.status = status;
 	}
 
-	public Long getEmployeeID() {
-		return employee_id;
+	
+
+	public Date getNext_call() {
+		return next_call;
 	}
 
-	public void setEmployeeID(Long employeeID) {
-		this.employee_id = employeeID;
+	public void setNext_call(Date next_call) {
+		this.next_call = next_call;
 	}
 
 	public Integer getTotalRecords() {

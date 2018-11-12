@@ -3,37 +3,27 @@ package com.pixel.bean;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
+import javax.persistence.Transient;
 
 @Entity
-@Table(name = "leads")
-public class Leads {
+public class leadsModelWithEmployee {
 
 	@Id
-	@Column(name = "leadsID")
 	private Long lead_id;
-	
-	@Column(name = "NAME")
 	private String name;
-	
-	@Column(name = "MOBILE")
 	private String mobile;
-    
-	@Column(name = "creationDate")
 	private Date creation_date;
-	
-	@Column(name = "lastUpdatedDate")
 	private Date last_updated_date;
-	
-	@Column(name = "STATUS")
-	private int status;
-	
-	@Column(name = "employeeID")
-	private Long employee_id;
+	private String status;
+	private String employee_name = "";
+	private Date next_call;
+
+	private Integer totalRecords;
+
+	@Transient
+	private Integer rn;
 
 	public Long getLeadID() {
 		return lead_id;
@@ -75,21 +65,49 @@ public class Leads {
 		this.last_updated_date = lastUpdatedDate;
 	}
 
-	public int getStatus() {
+	public String getEmployee_name() {
+		return employee_name;
+	}
+
+	public void setEmployee_name(String employee_name) {
+		this.employee_name = employee_name;
+	}
+
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public Long getEmployeeID() {
-		return employee_id;
+	
+
+	public Date getNext_call() {
+		return next_call;
 	}
 
-	public void setEmployeeID(Long employeeID) {
-		this.employee_id = employeeID;
+	public void setNext_call(Date next_call) {
+		this.next_call = next_call;
 	}
+
+	public Integer getTotalRecords() {
+		return totalRecords;
+	}
+
+	public void setTotalRecords(Integer totalRecords) {
+		this.totalRecords = totalRecords;
+	}
+
+	public Integer getRn() {
+		return rn;
+	}
+
+	public void setRn(Integer rn) {
+		this.rn = rn;
+	}
+		
+
 	
-	
+
 }

@@ -80,15 +80,7 @@ public class LeadServiceImpl implements LeadService {
 	}
 
 
-	@Override
-	public List<Lead> getInterestedLead() {
-		return leadDao.getInterstedLead();
-	}
-
-    @Override
-    public List<Lead> getOtherLead(){
-    	return leadDao.getOtherLead();
-    }
+	
 	
 
 	

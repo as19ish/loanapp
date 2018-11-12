@@ -91,7 +91,7 @@ public class AppUtil {
 
 	public static String buildPaginatedQuery(String baseQuery, PaginationCriteria paginationCriteria) {
 		//String queryTemplate = "SELECT FILTERED_ORDERD_RESULTS.* FROM (SELECT BASEINFO.* FROM ( %s ) BASEINFO %s  %s ) FILTERED_ORDERD_RESULTS LIMIT %d, %d";
-		StringBuilder sb = new StringBuilder("SELECT FILTERED_ORDERD_RESULTS.* FROM (SELECT BASEINFO.* FROM ( #BASE_QUERY# ) BASEINFO #WHERE_CLAUSE#  #ORDER_CLASUE# ) FILTERED_ORDERD_RESULTS LIMIT #PAGE_NUMBER#, #PAGE_SIZE#");
+		StringBuilder sb = new StringBuilder("SELECT FILTERED_ORDERD_RESULTS.* FROM (SELECT BASEINFO.* FROM ( #BASE_QUERY# ) BASEINFO ) FILTERED_ORDERD_RESULTS #WHERE_CLAUSE#  #ORDER_CLASUE#  LIMIT #PAGE_NUMBER#, #PAGE_SIZE#");
 		String finalQuery = null;
 		if(!AppUtil.isObjectEmpty(paginationCriteria)) {
 			finalQuery = sb.toString().replaceAll("#BASE_QUERY#", baseQuery)

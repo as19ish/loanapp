@@ -949,7 +949,7 @@
 						  		  },700);
 			        	      setTimeout(function(){
 			        	    	    
-						  		//	location.reload();
+						  			location.reload();
 						  		  },1500);
 			             }else{
 			            	 
@@ -964,7 +964,7 @@
 			        	 $("#interested").modal("hide");
 			        	 toastr.error('Error!! Someyhing went wrong  '); 
 			        	 setTimeout(function(){
-					  			//location.reload();
+					  			location.reload();
 					  		  },800);
 			         }
 			      })

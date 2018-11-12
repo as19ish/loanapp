@@ -1,6 +1,6 @@
 package com.pixel.dao;
 
-import java.util.List;
+
 
 import com.pixel.bean.InterestedLead;
 import com.pixel.bean.Remark;
@@ -14,10 +14,8 @@ public interface LeadsDao {
 	public boolean changeStatus(Remark remark);
 	public boolean delete(Long id);
 	public boolean addToIntrested(InterestedLead lead);
-	public List<Lead> getInterstedLead();
-	public List<Lead> getOtherLead();
 	
-	 
+	
 	 
 
 }

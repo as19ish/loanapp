@@ -1,6 +1,6 @@
 package com.pixel.service;
 
-import java.util.List;
+
 
 import com.pixel.bean.InterestedLead;
 import com.pixel.bean.Remark;
@@ -14,8 +14,7 @@ public interface LeadService {
 	public boolean changeStatus(Remark remark);
 	public boolean delete(Long id);
 	public boolean addToInterested(InterestedLead lead);
-	public List<Lead> getInterestedLead();
-	public List<Lead> getOtherLead();
+
 	
 
 }

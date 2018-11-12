@@ -97,49 +97,8 @@ public class LeadsDaoImp implements LeadsDao {
 		return true;
 	}
 	
-	@Override
-	public List<Lead> getInterstedLead() {
-		
-		try {
-			
-		    if(AppUtil.hasRole("admin")) {
-		    	String query = "SELECT leads.lead_id,leads.name,leads.mobile,leads.last_updated_date,leads.next_call,status.name as status, employee.name as employee_name from leads inner join status on leads.status_id = status.id INNER JOIN employee on employee.employee_id = leads.employee_id where status.name = 'interested' ORDER BY 'next_call' ASC";
-			    List<Lead> leads = jdbcTemplate.query(query, new BeanPropertyRowMapper<Lead>(Lead.class));
-			    return leads;
-	     	}else {
-	     		
-	     		String query = "SELECT leads.lead_id,leads.name,leads.mobile,leads.last_updated_date,leads.next_call,status.name as status, employee.name as employee_name from leads inner join status on leads.status_id = status.id INNER JOIN employee on employee.employee_id = leads.employee_id where status.name = 'interested' and leads.employee_id = ?";
-	     		List<Lead> leads = jdbcTemplate.query(query,new Object[]{AppUtil.getEmployeeId()}, new BeanPropertyRowMapper<Lead>(Lead.class));
-	     		return leads;
-		   }
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		
-	}
 	
-	@Override
-	public List<Lead> getOtherLead() {
-			
-			try {
-				
-			    if(AppUtil.hasRole("admin")) {
-		    	String query = "SELECT leads.lead_id,leads.name,leads.mobile,leads.last_updated_date,leads.next_call,status.name as status, employee.name as employee_name from leads inner join status on leads.status_id = status.id INNER JOIN employee on employee.employee_id = leads.employee_id where status.name != 'interested' and status.name != 'new' ORDER BY 'next_call' ASC";
-			    List<Lead> leads = jdbcTemplate.query(query, new BeanPropertyRowMapper<Lead>(Lead.class));
-			    return leads;
-	     	}else {
-	     		
-	     		String query = "SELECT leads.lead_id,leads.name,leads.mobile,leads.last_updated_date,leads.next_call,status.name as status, employee.name as employee_name from leads inner join status on leads.status_id = status.id INNER JOIN employee on employee.employee_id = leads.employee_id where status.name != 'interested' and status.name != 'new' and leads.employee_id = ?";
-	     		List<Lead> leads = jdbcTemplate.query(query,new Object[]{AppUtil.getEmployeeId()}, new BeanPropertyRowMapper<Lead>(Lead.class));
-	     		return leads;
-		   }
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		
-	}
+
 	
 
 		
@@ -179,6 +138,9 @@ public class LeadsDaoImp implements LeadsDao {
 			return lead;
 		}
 	}
+
+
+	
 
 
 	
