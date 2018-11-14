@@ -19,8 +19,7 @@ import com.pixel.bean.Employee;
 public class AdminDaoImp implements AdminDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	
     
 	@Override
 	public boolean addEmployee(Employee employee) {
@@ -28,7 +27,7 @@ public class AdminDaoImp implements AdminDao {
 		String query = "INSERT INTO employee (name ,email,mobile,password,date,status,type)" + " VALUES (?, ?, ?, ?,?,?,?)";
 		// define query arguments
 		Object[] params = new Object[] { employee.getName(), employee.getEmail(), employee.getMobile(),
-				passwordEncoder.encode(employee.getPassword()), employee.getDate(), employee.getStatus(),employee.getType() };
+				employee.getPassword(), employee.getDate(), employee.getStatus(),employee.getType() };
 		// define SQL types of the arguments
 		int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP,
 				Types.VARCHAR,Types.VARCHAR };

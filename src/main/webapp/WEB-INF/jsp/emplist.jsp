@@ -135,7 +135,7 @@
 									                <th>Name</th>
 									                <th>Email</th>
 									                <th>Mobile</th>
-									                
+									                <th>Password</th>
 									                <th>Date</th>
 									                <th>Type</th>
 									                <th>Status</th>
@@ -149,7 +149,7 @@
 								                        <td>${temp.name}</td>
 								                        <td>${temp.email}</td>
 								                        <td>${temp.mobile}</td>
-								                       
+								                        <td>${temp.password}</td>
 								                        <td>${temp.date}</td>
 								                        <td>${temp.type}</td>
 								                        
