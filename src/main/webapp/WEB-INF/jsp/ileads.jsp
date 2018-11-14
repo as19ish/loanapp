@@ -133,6 +133,7 @@
 										                    <th>Employee Name</th>
 										                    </c:if>
 										                    <th>status</th>
+										                    <th>Action</th>
 										                    
 										                </tr>
 										            </thead>
@@ -216,20 +217,29 @@
 	                    { "data": "lead_id", "name" : "lead_id", "title" : "LeadID"  },
 	                    { "data": "name", "name" : "name" , "title" : "Name"},
 	                    { "data": "mobile", "name" : "mobile" , "title" : "Mobile"},
-	                    { "data": "next_call", "name" : "next_call" , "title" : "NextCallDateTime"},
-	                    { "data": "last_updated_date", "name" : "last_updated_date" , "title" : "LastUpdatedDate"},
+	                    { "data": "next_call", "name" : "next_call" , "title" : "Next Call DateTime"},
+	                    { "data": "last_updated_date", "name" : "last_updated_date" , "title" : "Last Updated Date"},
 	                    <c:if test="${AppUtil.hasRole('admin')}" >
 	                    { "data": "employee_name", "name" : "employee_name" , "title" : "Employee Name"},
 	                    </c:if>
 	                    { "data": "status", "name" : "status" , "title" : "Status"},
-	                    
+	                    { "data": "lead_id",
+	                        "searchable": false,
+	                        "sortable": false,
+	                        "render": function (id, type, full, meta) {
+	                                                  return '<span  data-lead-id='+id+' style="cursor: pointer"  >More Details</i></span>';
+	                                              } 
+	                      },
 	                   
 	                ]   
 	         ,
 	           order: [[ 4, "asc" ]]
 		});
 
-		
+		$('#otherLeadTable tbody').on( 'click', 'span', function () {
+			
+			 window.location.href = "leads/show/"+this.getAttribute("data-lead-id");
+		});
 		
 		
 		 

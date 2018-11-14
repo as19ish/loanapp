@@ -11,6 +11,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+
+
 @Component
 public class ExcelDaoImp implements ExcelDao {
 	@Autowired
@@ -73,5 +75,26 @@ public class ExcelDaoImp implements ExcelDao {
 
 	    }
 	    return leads.size();
+	}
+
+	@Override
+	public boolean sheetExist(String file_hash) {
+		String query = "SELECT COUNT(*) FROM excel_sheet where file_hash = ?";
+		int result = jdbcTemplate.queryForObject(query, new Object[]{file_hash}, Integer.class);
+		
+		if(result==0) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean addSheet(ExcelSheet sheet) {	
+		String query = "INSERT INTO excel_sheet(file_name,file_hash,sheet_type,total_added,errors,creation_date,expire_date) VALUES(?,?,?,?,'[{}]',?,?)";
+		int result = jdbcTemplate.update(query,new Object[]{sheet.getFile_name(),sheet.getFile_hash(),sheet.getSheet_type(),sheet.getTotal_added(),sheet.getCreation_date(),sheet.getExpire_date()});
+		if(result == 1) {
+			return true;
+		}
+		return false;
 	}
 }

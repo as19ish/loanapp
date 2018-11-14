@@ -55,6 +55,19 @@
 
 <!--end::Global Theme Styles -->
 <link rel="shortcut icon" href="assets/demo/media/img/logo/favicon.ico" />
+<style>
+.upload-input{
+    border: 1px solid #c4c5d6;
+    padding: 1%;
+}
+em{
+   color:red;
+   margin-left:4%;
+}
+.center{
+   text-align: center;
+}
+</style>
 </head>
 
 <!-- end::Head -->
@@ -112,7 +125,7 @@
 				<!-- END: Subheader -->
               					<c:if test="${leadsAdded eq 'true' }">
               					<div class="modal fade in" id="uploadResults"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-								  <div class="modal-dialog" role="document">
+								  <div class="modal-dialog modal-lg " role="document">
 								    <div class="modal-content">
 								      <div class="modal-header">
 								        <h5 class="modal-title" id="exampleModalLongTitle">Upload Results</h5>
@@ -121,37 +134,43 @@
 								        </button>
 								      </div>
 								      <div class="modal-body">
-								      
+								         <c:if test="${sheetExist eq 'true' }">
+								         <div class="alert alert-danger">
+                                             <span>Errors !! Sheet Already Uploaded </span>
+                                             <br>
+                                             <span>Try Again With Different Sheet</span>
+                                              
+                                         </div>
+								         </c:if>
 											
-										
-										<div class="alert alert-success">
-                                           ${addedLeads} leads added successfully
-                                         </div>
-                                         <div class="alert alert-danger">
-                                          Errors
-                                         </div>
-										
-										<table class="table table">
+										 <c:if test="${sheetExist eq 'false' }">
+											<div class="alert alert-success">
+	                                           ${addedLeads} leads added successfully
+	                                         </div>
+	                                         <div class="alert alert-danger">
+	                                            <span>Errors found in ${rejectedLeadsize} leads</span>
+	                                            <br>
+	                                          </div>   
+	                                     <table id="errors" class="table table-striped table-bordered">
 										    <thead>
 										      <tr>
-										        <th style="color:red;">Row No</th>
-										        <th style="color:red;">Reason</th>
+										        <th style="color:red;" class="center">Row No</th>
+										        <th style="color:red;" class="center" >Reason</th>
 										       
 										      </tr>
 										    </thead>
 										    <tbody>
-										    <c:forEach items="${rejectedLeads}" var="rLead">
+										    <c:forEach items="${rejectedLead}" var="rLead">
 										      <tr>
-										        <td>${rLead.rowNumber}</td>
-										        <td>${rLead.reason}</td>
+										        <td class="center">${rLead.rowNumber}</td>
+										        <td class="center">${rLead.reason}</td>
 										       
 										      </tr>
 										    </c:forEach> 
 										    </tbody>
 										  </table>
-											
-										
-									
+	                                        
+										</c:if>					
 								      </div>
 								      
 								    </div>
@@ -167,19 +186,26 @@
 							<div class="col-xl-12 col-lg-12">
 								<div class="m-portlet m-portlet--full-height   m-portlet--unair">
 									<div class="m-portlet__body">
-										<form method="POST" action="<c:url value='/upload-leads' />" enctype="multipart/form-data">
+										<form method="POST" action="<c:url value='/upload-leads' />" enctype="multipart/form-data" id="upload-form">
 											
 											<p> Choose Excel Sheet </p>
-										    <div class="custom-file mb-3">
-										      <input type="file" class="custom-file-input" id="customFile" name="file">
-										      <label class="custom-file-label" for="customFile">Choose file</label>
-										    </div>
-										    <div class="m-portlet__foot m-portlet__foot--fit">
+											<div class="row">
+				                                 <div class="col-md-12">
+					                                     <div class="form-group">
+					                                         <label class="control-label col-md-6"></label>
+					                                         <div class="col-md-12">
+					                                             <input type="file" class="upload-input" id="uploadFile" name="file">
+					                                         </div>
+					                                     </div>
+					                                 </div>
+					                           </div>
+										    
+										    <div class="m-portlet__foot m-portlet__foot--fit" style="border-top:none;margin-left:1%">
 											<div class="m-form__actions">
 												<div class="row">
 													<div class="col-7">
-														<button type="submit"
-															class="btn btn-accent m-btn m-btn--air m-btn--custom">Upload</button>
+														<button type="button"
+															class="btn btn-accent m-btn m-btn--air m-btn--custom" id="b-submit" style="margin-left:1%">Upload</button>
 														
 													</div>
 												</div>
@@ -236,14 +262,63 @@
 
 	<!--begin::Global Theme Bundle -->
 	<script src="assets/demo/base/scripts.bundle.js" type="text/javascript"></script>
-	<c:if test="${leadsAdded eq 'true' }">
+	<script src="vendors/jquery-validation/dist/jquery.validate.js" type="text/javascript"></script>
+	<script src="vendors/jquery-validation/dist/additional-methods.js" type="text/javascript"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+	
+		
 	<script>
+	<c:if test="${leadsAdded eq 'true' }">
 	 $(window).on('load',function(){
-	        $('#uploadResults').modal('show');
+	        $('#uploadResults').modal({
+	        	backdrop: 'static',
+			    keyboard: false
+	        });
 	    });
-	 
+	 </c:if>
+	 jQuery.validator.setDefaults({
+		  debug: true,
+		  success: "valid"
+		});
+	var validator =  $( "#upload-form" ).validate({
+		  rules: {
+		    file: {
+		      required: true,
+		      extension: "xlsx"
+		    }
+	     },
+		    messages:{
+		    	file:{
+		    		required: 'Please choose data sheet',
+		    		extension: 'Only Excel Sheet Allowed'
+		    	}
+		    },
+		  
+		  errorElement: "em",
+    	  highlight: function(element, errorClass, validClass) {
+			    
+				 $(element).css({"border": "1px solid rgba(232, 5, 5, 0.4)"})
+			 },
+    	 unhighlight:function(element, errorClass, validClass) {
+					 $(element).css({"border": "1px solid #e2e2e2"})
+				 },
+		});
+	 $('#b-submit').click(function(){
+		 if(!validator.form()){
+			 return false;
+		 }
+		 $('#b-submit').html('Processing<i class="fa fa-spinner fa-spin" ></i>');
+		 $('#upload-form')[0].submit();
+		 
+	 });
+	 $('#errors').DataTable({
+	    	searching: false, 
+	    	
+	    });
+	 $('#errors_length').hide();
 	</script>
-	</c:if>
+	
 
 	<!--end::Global Theme Bundle -->
 </body>

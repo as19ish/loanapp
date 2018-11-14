@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -48,6 +49,9 @@ public class LeadsController {
 	
 	@Autowired
 	private MoreDeatailService moreDetailService;
+	
+	@Autowired
+    private ServletContext servletContext;
 	
 
 	@PersistenceContext

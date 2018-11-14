@@ -838,6 +838,7 @@
 		   $("#submit").click(function(e){
 			  
 			      e.preventDefault();
+			      $("#submit").html('Submiting <i class="fa fa-spinner fa-spin" ></i>');
 			      validator_pinfo.form();
 			      validator_eloan.form();
 			      validator_ecard.form();
@@ -897,6 +898,7 @@
 			         data : JSON.stringify(lead),
 			         dataType: "json",
 			         success : function(res) {
+			        	 $("#submit").html('Submit');
 			             if(res['status'] == 'success'){
 			        	      
 			        	      $("#interested").modal("hide");
@@ -917,7 +919,7 @@
 			            
 			         },
 			         error:function(error){
-			        	 
+			        	 $("#submit").html('Submit');
 			        	 $("#interested").modal("hide");
 			        	 toastr.error('Error!! Someyhing went wrong  '); 
 			        	 setTimeout(function(){
@@ -929,6 +931,7 @@
 
 		     $("#r_submit").click(function(e){
 		    	 e.preventDefault();
+		    	 $("#r_submit").html('Submiting <i class="fa fa-spinner fa-spin" ></i>');
 		    	 var lead = {};
 		    	 lead['status_id'] = $('#status_id').val();
 		    	 lead['remark'] = $('#text_remark').val();
@@ -941,7 +944,7 @@
 			         dataType: "json",
 			         success : function(res) {
 			             if(res['status'] == 'success'){
-			        	      
+			            	 $("#r_submit").html('Submit');
 			        	      $("#interested").modal("hide");
 			        	      toastr.success('Successfully Status Changed!! ');
 			        	      setTimeout(function(){
@@ -960,7 +963,7 @@
 			            
 			         },
 			         error:function(error){
-			        	 
+			        	 $("#r_submit").html('Submit');
 			        	 $("#interested").modal("hide");
 			        	 toastr.error('Error!! Someyhing went wrong  '); 
 			        	 setTimeout(function(){
