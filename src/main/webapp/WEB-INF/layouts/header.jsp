@@ -1,3 +1,4 @@
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 			<header id="m_header" class="m-grid__item    m-header " m-minimize-offset="200" m-minimize-mobile-offset="200">
@@ -57,6 +58,13 @@
 							<div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
 								<div class="m-stack__item m-topbar__nav-wrapper">
 									<ul class="m-topbar__nav m-nav m-nav--inline">
+									    <c:if test="${fn:contains(requestScope['javax.servlet.forward.request_uri'], '/leads/show/')}">
+										<li id="m_quick_sidebar_toggle" class="m-nav__item">
+											<a href="#" class="m-nav__link m-dropdown__toggle">
+												<span class="m-nav__link-icon"><i class="far fa-comments"></i></span>
+											</a>
+										</li>
+										</c:if>
 										<li class="m-nav__item m-topbar__notifications m-dropdown m-dropdown--large m-dropdown--arrow m-dropdown--align-center 	m-dropdown--mobile-full-width" m-dropdown-toggle="click" m-dropdown-persistent="1">
 											<a href="#" class="m-nav__link m-dropdown__toggle" id="m_topbar_notification_icon">
 												<span class="m-nav__link-icon">
@@ -186,6 +194,7 @@
 												</div>
 											</div>
 										</li>
+										
 										<sec:authentication var="principal" property="principal" />
 										<sec:authorize access="isAuthenticated()">
 										<li class="m-nav__item m-topbar__user-profile  m-dropdown m-dropdown--medium m-dropdown--arrow  m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
@@ -245,6 +254,7 @@
 											</div>
 										</li>
 										</sec:authorize>
+										
 									</ul>
 								</div>
 							</div>

@@ -40,6 +40,7 @@ public class UploadFileController {
 				return "redirect:/upload-leads";
 			}
 			lContainer = sheetToLoanLead.getLeadList(file.getInputStream());
+			excelService.uploadLeads(lContainer.getAcceptedLeads());
 			redirectAttributes.addFlashAttribute("addedLeads", lContainer.getAcceptedLeads().size());
 			redirectAttributes.addFlashAttribute("leadsAdded", "true");
 			redirectAttributes.addFlashAttribute("rejectedLeadsize", lContainer.getRejectedLeads().size());

@@ -7,7 +7,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.servlet.ServletContext;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,6 +31,7 @@ import com.pixel.bean.pagination.DataTableRequest;
 import com.pixel.bean.pagination.DataTableResults;
 import com.pixel.bean.pagination.PaginationCriteria;
 import com.pixel.excel.Lead;
+import com.pixel.service.CommentService;
 import com.pixel.service.LeadService;
 import com.pixel.service.MoreDeatailService;
 import com.pixel.service.StatusService;
@@ -51,7 +52,8 @@ public class LeadsController {
 	private MoreDeatailService moreDetailService;
 	
 	@Autowired
-    private ServletContext servletContext;
+	private CommentService commentService;
+	
 	
 
 	@PersistenceContext
@@ -113,6 +115,7 @@ public class LeadsController {
 		}else {
 			model.addAttribute("business", moreDetailService.getBussinessDetails(id));
 		}
+		model.addAttribute("comments", commentService.getAll(id) );
 		return "lead";
 		
 	}

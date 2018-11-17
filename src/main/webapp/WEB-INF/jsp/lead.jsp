@@ -38,7 +38,7 @@
 
 <link href="../../vendors/vendors/flaticon/css/flaticon.css" rel="stylesheet"
 	type="text/css" />
-
+<link href="../../vendors/vendors/fontawesome5/css/all.min.css" rel="stylesheet" type="text/css" />
 
 <!--end:: Global Optional Vendors -->
 
@@ -50,12 +50,17 @@
 
 <!--end::Global Theme Styles -->
 <link rel="shortcut icon" href="../../assets/demo/media/img/logo/favicon.ico" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" type="text/css" />
+	
 <style>
    h3{
       font-weight: 300 !important;
    }
    h4{
       font-weight: 300 !important;
+   }
+   .m-messenger__message-content{
+       padding-bottom: 26px !important;      
    }
 </style>
 </head>
@@ -251,7 +256,7 @@
 
 	<!-- end::Scroll Top -->
 
-	
+	<%@ include file="/WEB-INF/layouts/comments.jsp" %>
 
 	<!--begin:: Global Mandatory Vendors -->
 	<script src="../../vendors/jquery/dist/jquery.js" type="text/javascript"></script>
@@ -279,7 +284,27 @@
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
 	<script src="../../assets/demo/base/scripts.bundle.js" type="text/javascript"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" type="text/javascript"></script>
+		
     <script>
+    toastr.options = {
+			  "closeButton": false,
+			  "debug": false,
+			  "newestOnTop": false,
+			  "progressBar": true,
+			  "positionClass": "toast-top-right",
+			  "preventDuplicates": false,
+			  "onclick": null,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "5000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+			};
     $('#loans').DataTable({
     	searching: false, paging: false, info: false
     });
@@ -287,6 +312,56 @@
     	searching: false, paging: false, info: false
     });
     </script>
+    <script> 
+    $(document).ready(function(){
+    	 $("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight")}, 1000);
+    	 $('.date').each(function(i, obj) {
+    		    $(obj).html(moment($(obj).html()).fromNow(true));
+    		   
+    		});
+    }); 
+		 $("#send").click(function(e){
+             e.preventDefault();
+             $("#send").html('<i class="fa fa-spinner fa-spin" ></i>');
+             if($('#comment').val() == ''){
+            	 $("#send").html('<i class="fas fa-paper-plane" style="color:black;"></i>');
+            	 return false;
+             }
+             var comment = {};
+             comment['lead_id'] = $('#leadId').val();
+             comment['comment'] = $('#comment').val();
+             
+             
+             $.post({
+                 url : '/comments/add',
+                 contentType : "application/json",
+                 data : JSON.stringify(comment),
+                 dataType: "json",
+                 success : function(res) {
+                     if(res['status'] == 'success'){
+                    	   $("#send").html('<i class="fas fa-paper-plane" style="color:black;"></i>'); 
+                    	   $("#messages").append('<div class="m-messenger__wrapper"><div class="m-messenger__message m-messenger__message--out"><div class="m-messenger__message-body"><div class="m-messenger__message-arrow"></div><div class="m-messenger__message-content"><div class="m-messenger__message-text">'+$('#comment').val()+'</div><span class="date" style="color:#fff;float:right">now</span></div></div></div></div>');
+                    	   $('#comment').val('');
+                    	   $("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight")}, 1000);
+                     }else{
+                    	   $("#send").html('<i class="fas fa-paper-plane" style="color:black;"></i>'); 
+                    	   toastr.error('Something went wrong!! ');
+                     }
+                    
+                 },
+                 error:function(error){
+                	 $("#send").html('<i class="fas fa-paper-plane" style="color:black;"></i>'); 
+              	     toastr.error('Something went wrong!! ');
+                 }
+              })
+
+             
+             
+             
+         });
+		
+		
+		</script>
 	<!--end::Global Theme Bundle -->
 </body>
 
