@@ -9,6 +9,7 @@ public class Comment {
 	private long employee_id;
 	private String name;
 	private String comment;
+	private String status;
 	private Date creation_date = new Date();
 	private Date last_updated_date = new Date();
 	public long getId() {
@@ -40,6 +41,12 @@ public class Comment {
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	public Date getCreation_date() {
 		return creation_date;

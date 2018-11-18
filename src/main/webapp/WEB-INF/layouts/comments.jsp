@@ -21,13 +21,17 @@
 										<div class="m-messenger__message-pic">
 											<img src="../../assets/app/media/img/users/user3.jpg" alt="">
 										</div>
-										<div class="m-messenger__message-body">
+										<div class="m-messenger__message-body min-200w">
 											<div class="m-messenger__message-arrow"></div>
 											<div class="m-messenger__message-content">
 												<div class="m-messenger__message-username">
-													${temp.name} wrote
+													${temp.name}  <span style="float:right">${temp.status}</span>
 												</div>
-												<span class="date">${temp.creation_date}</span> <span >ago</span>
+												<div class="m-messenger__message-username" >
+												  <span class="date">${temp.creation_date}</span> <span >ago</span>
+												
+												</div>
+												
 												<div class="m-messenger__message-text">
 													${temp.comment}
 												</div>

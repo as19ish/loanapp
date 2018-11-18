@@ -133,7 +133,7 @@
 										                    <c:if test="${AppUtil.hasRole('admin')}" >
 										                    <th>Employee Name</th>
 										                    </c:if>
-										                    
+										                    <th>action</th>
 										                </tr>
 										            </thead>
 								    	        </table>
@@ -220,12 +220,21 @@
 	                    <c:if test="${AppUtil.hasRole('admin')}" >
 	                    { "data": "employee_name", "name" : "employee_name" , "title" : "Employee Name"},
 	                    </c:if>
-	                    
+	                    { "data": "lead_id",
+	                        "searchable": false,
+	                        "sortable": false,
+	                        "render": function (id, type, full, meta) {
+	                                                  return '<span  data-lead-id='+id+' style="cursor: pointer"  >More Details</i></span>';
+	                                              } 
+	                      },
 	                   
 	                ]    
 		});
 
-		
+		$('#otherLeadTable tbody').on( 'click', 'span', function () {
+			
+			 window.location.href = "leads/show/"+this.getAttribute("data-lead-id");
+		});
 		
 		
 		 

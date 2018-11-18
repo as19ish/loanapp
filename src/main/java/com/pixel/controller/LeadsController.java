@@ -104,6 +104,7 @@ public class LeadsController {
 	@RequestMapping(value="leads/show/{id}",method=RequestMethod.GET)
 	public String show(@PathVariable("id") Long id,ModelMap model) {
 		Lead lead = leadService.getLead(id);
+		System.out.println(lead.getStatus());
 		if(!AppUtil.hasRole("admin") && lead.getEmployee_id() != AppUtil.getEmployeeId()) {
 			return "404";
 		}

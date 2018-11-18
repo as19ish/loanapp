@@ -62,6 +62,9 @@
    .m-messenger__message-content{
        padding-bottom: 26px !important;      
    }
+   .min-200w{
+     min-width:200px !important;
+   }
 </style>
 </head>
 
@@ -99,7 +102,7 @@
                             <div class="col-md-6 invoice-logo-space">
                                 <h2>PIXELTECHLAB</h2> </div>
                             <div class="col-md-6">
-                                <p> #${ lead.lead_id } / ${ lead.creation_date }
+                                <p> #${ lead.lead_id } 
                                    
                                 </p>
                             </div>
@@ -109,6 +112,7 @@
                             <div class="col-md-4">
                                 <h3>Client:</h3>
                                 <ul class="list-unstyled">
+                                    <li>Status : ${lead.status} </li>
                                     <li>Name : ${lead.name} </li>
                                     <li>Mobile : ${lead.mobile} </li>
                                     <li>Email : ${lead.email} </li>
@@ -145,6 +149,7 @@
                                     <li> ${lead.remark}</li>
                                     
                                 </ul>
+                                
                                 <h4>Next Call Date:</h4>
                                 <ul class="list-unstyled">
                                     <li> <fmt:formatDate value="${lead.next_call}" pattern="E yyyy.MM.dd 'at' hh:mm:ss a " /></li>

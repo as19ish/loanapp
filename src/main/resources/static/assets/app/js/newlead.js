@@ -237,6 +237,10 @@
                                              .attr('disabled', 'disabled')
                                              .on('click', function(){
                                             	      $('#btnFinish').html('Submiting <i class="fa fa-spinner fa-spin" ></i>');
+                                            	      if(!validator_next_call_form.form()){
+                                            	        $('#btnFinish').html('Finish');  
+                                                  		return false;
+                                                  	}
                                                     	$.post({
                                                             url : 'leads/interested',
                                                             contentType : "application/json",
