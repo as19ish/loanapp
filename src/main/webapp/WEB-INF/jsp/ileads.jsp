@@ -102,7 +102,7 @@
 									</li>
 									<li class="m-nav__separator">-</li>
 									<li class="m-nav__item">
-										<a href="/" class="m-nav__link">
+										<a href="/ileads" class="m-nav__link">
 											<span class="m-nav__link-text">Interested Leads</span>
 										</a>
 									</li>

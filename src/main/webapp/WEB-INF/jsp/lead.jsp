@@ -6,7 +6,7 @@
 <!-- begin::Head -->
 <head>
 <meta charset="utf-8" />
-<title>Add New Lead</title>
+<title>Lead</title>
 <meta name="description" content="User profile view and edit">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">

@@ -266,7 +266,10 @@
 				  "hideMethod": "fadeOut"
 				}
 		$('select').on('change', function() {
-			  
+			  if(this.getAttribute("data-rowId") == ${AppUtil.getEmployeeId()}){
+				  alert('Not Allowed');
+				  return;
+			  }
 			  var promise =  new Promise((resolve, reject) => {
 			      $.getJSON('toggle_status/'+this.getAttribute("data-rowId"))
 			        .done(resolve)

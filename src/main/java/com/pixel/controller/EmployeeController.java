@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pixel.service.AdminService;
+import com.pixel.util.AppUtil;
 
 
 
@@ -29,15 +30,13 @@ public class EmployeeController {
 		model.addAttribute("emplist",adminService.getEmployees());
 		return "emplist";
 	}
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	public String profile(ModelMap model) {
-		return "profile";
-	}
 	
 	@RequestMapping(value = "/toggle_status/{id}",method=RequestMethod.GET)
 	@ResponseBody
 	public boolean toggleStatus(@PathVariable("id") int id){
-		
+		if(AppUtil.getEmployeeId() == id) {
+			return  false;
+		}
 		return adminService.toggleStatus(id);
 	}
 	

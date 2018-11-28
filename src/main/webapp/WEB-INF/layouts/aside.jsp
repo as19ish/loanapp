@@ -17,6 +17,7 @@
 							<li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/addemployee'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/addemployee" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-add"></i><span class="m-menu__link-text">Add Employee</span></a></li>
 							<li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/emplist'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/emplist" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Employee List</span></a></li>
 						  </c:if>
+						  
 							<li class="m-menu__section ">
 								<h4 class="m-menu__section-text">Leads</h4>
 								<i class="m-menu__section-icon flaticon-more-v2"></i>
@@ -32,6 +33,16 @@
 		                   	 <li class="m-menu__item  <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/add-leads'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/add-leads" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Add Lead</span></a></li>
 						     <li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/upload-leads'}">m-menu__item--active</c:if>" aria-haspopup="true" m-menu-link-redirect="1"><a href="/upload-leads" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-graphic"></i><span class="m-menu__link-text">Upload Leads</span></a></li>
 							 </c:if>
-						   				
+							 
+						     <c:if test="${AppUtil.hasRole('admin')}">
+							<li class="m-menu__section m-menu__section--first">
+								<h4 class="m-menu__section-text" >Company</h4>
+								<i class="m-menu__section-icon flaticon-more-v2"></i>
+							
+							</li>
+							<li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/companies'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/companies" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-list"></i><span class="m-menu__link-text">Companies</span></a></li>
+							<li class="m-menu__item <c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/upload-company'}">m-menu__item--active</c:if>" aria-haspopup="true"><a href="/upload-company" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-add"></i><span class="m-menu__link-text">Upload Company Sheet</span></a></li>
+							</c:if>	
+						  			
 						</ul>
 </div>

@@ -13,6 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class ExcelServiceImp implements ExcelService{
 	@Autowired
 	ExcelDao excelDao;
+	
+	@Override
+	public int uploadCompany(List<Company> company) {
+		return excelDao.uploadCompany(company);
+	}
 	@Override
 	public int uploadLeads(List<Lead> leads) {
 		return excelDao.uploadLeads(leads);
@@ -50,5 +55,6 @@ public class ExcelServiceImp implements ExcelService{
 	public boolean addSheet(ExcelSheet sheet) {
 		return excelDao.addSheet(sheet);
 	}
+	
 	
 }

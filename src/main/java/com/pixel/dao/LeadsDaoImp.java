@@ -26,7 +26,7 @@ public class LeadsDaoImp implements LeadsDao {
 	
 	@Override
 	public Lead getLead(long lead_id) {
-		String query = "SELECT leads.lead_id,leads.name,leads.mobile,leads.email,leads.alternate_mobile,leads.creation_date,leads.last_updated_date,leads.status_id,leads.employee_id,leads.next_call,leads.remark, status.name as status from leads INNER JOIN status on leads.status_id=status.id where lead_id = ? ";
+		String query = "SELECT leads.lead_id,leads.name,leads.mobile,leads.email,leads.alternate_mobile,leads.creation_date,leads.last_updated_date,leads.status_id,leads.employee_id,leads.next_call,leads.remark,leads.occupation_id, status.name as status from leads INNER JOIN status on leads.status_id=status.id where lead_id = ? ";
 		return jdbcTemplate.query(query,new Object[] {lead_id}, new BeanPropertyRowMapper<Lead>(Lead.class)).get(0);
 		
 	}

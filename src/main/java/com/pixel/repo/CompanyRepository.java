@@ -12,7 +12,7 @@ import com.pixel.bean.Company;
 @Repository("CompanyRepository")
 public interface CompanyRepository extends CrudRepository<Company, Integer> {
 
-	@Query("SELECT name FROM Company where name like %:keyword%")
+	@Query(value="SELECT name FROM company where name like LOWER(CONCAT('%',:keyword, '%')) LIMIT 10", nativeQuery = true)
 	public List<String> search(@Param("keyword") String keyword);
 
 }

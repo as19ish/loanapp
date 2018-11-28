@@ -6,7 +6,7 @@
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
-		<title>PixelTechlab | Other Leads</title>
+		<title> Companies </title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
@@ -87,7 +87,7 @@
 					    <div class="m-subheader ">
 						<div class="d-flex align-items-center">
 							<div class="mr-auto">
-								<h3 class="m-subheader__title m-subheader__title--separator">Other Leads</h3>
+								<h3 class="m-subheader__title m-subheader__title--separator">Companies</h3>
 								<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 									<li class="m-nav__item m-nav__item--home">
 										<a href="/" class="m-nav__link m-nav__link--icon">
@@ -97,13 +97,13 @@
 									<li class="m-nav__separator">-</li>
 									<li class="m-nav__item">
 										<a href="jacascript:;" class="m-nav__link">
-											<span class="m-nav__link-text">Leads</span>
+											<span class="m-nav__link-text">Company</span>
 										</a>
 									</li>
 									<li class="m-nav__separator">-</li>
 									<li class="m-nav__item">
-										<a href="/other-leads" class="m-nav__link">
-											<span class="m-nav__link-text">Other Leads</span>
+										<a href="/companies" class="m-nav__link">
+											<span class="m-nav__link-text">Company List</span>
 										</a>
 									</li>
 								</ul>
@@ -121,19 +121,13 @@
 									<div class="m-portlet__body">
 
 										<!--begin: Datatable -->
-									           <table id="otherLeadTable" class="table table-striped">
+									           <table id="companyTable" class="table table-striped" style="text-align:center;">
 										            <thead>
 										                <tr>
-										                    <th>leadID</th>
+										                    <th>ID</th>
 										                    <th>Name</th>
-										                    <th>Mobile</th>
-										                    <th>creationDate</th>
-										                    <th>lastUpdatedDate</th>
-										                    <th>status</th>
-										                    <c:if test="${AppUtil.hasRole('admin')}" >
-										                    <th>Employee Name</th>
-										                    </c:if>
-										                    <th>action</th>
+										                    <th>Creation Date</th>
+										                    
 										                </tr>
 										            </thead>
 								    	        </table>
@@ -201,42 +195,27 @@
 
 		<!--end::Page Scripts -->
 		<script type="text/javascript">
-		$('#otherLeadTable').DataTable( {
+		
+		
+		$('#companyTable').DataTable( {
 	        "processing": true,
 	        "serverSide": true,
 	        "pageLength": 10,
 	        "ajax": {
-	            "url": "/leads/fetch/other",
+	            "url": "/companies/pagination",
 	            "data": function ( data ) {
 				 
 	         }},
 	        "columns": [
-	                    { "data": "lead_id", "name" : "LeadID", "title" : "LeadID"  },
-	                    { "data": "name", "name" : "Name" , "title" : "Name"},
-	                    { "data": "mobile", "name" : "Mobile" , "title" : "Mobile"},
-	                    { "data": "creation_date", "name" : "CreationDate" , "title" : "CreationDate"},
-	                    { "data": "last_updated_date", "name" : "LastUpdatedDate" , "title" : "LastUpdatedDate"},
-	                    { "data": "status", "name" : "Status" , "title" : "Status"},
-	                    <c:if test="${AppUtil.hasRole('admin')}" >
-	                    { "data": "employee_name", "name" : "employee_name" , "title" : "Employee Name"},
-	                    </c:if>
-	                    { "data": "lead_id",
-	                        "searchable": false,
-	                        "sortable": false,
-	                        "render": function (id, type, full, meta) {
-	                                                  return '<span  data-lead-id='+id+' style="cursor: pointer"  >More Details</i></span>';
-	                                              } 
-	                      },
-	                   
-	                ]    
+	                    { "data": "id", "name" : "id", "title" : "ID"  },
+	                    { "data": "name", "name" : "name" , "title" : "Name"},
+	                    { "data": "creation_date", "name" : "creation_date" , "title" : "Creation Date"},
+	                                     
+	                ]   
+	        
 		});
 
-		$('#otherLeadTable tbody').on( 'click', 'span', function () {
-			
-			 window.location.href = "leads/show/"+this.getAttribute("data-lead-id");
-		});
-		
-		
+				
 		 
 		</script>
 	</body>

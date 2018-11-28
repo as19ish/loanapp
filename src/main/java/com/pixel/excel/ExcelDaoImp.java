@@ -17,36 +17,43 @@ import org.springframework.transaction.annotation.Transactional;
 public class ExcelDaoImp implements ExcelDao {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	
+	@Transactional()
+	@Override
+	public int uploadCompany(List<Company> company) {
+		final int batchSize = 5000;
+	    String sql = "INSERT IGNORE INTO company(name, creation_date) VALUES (?, ?)";
+	    
 
-//	@Override
-//	public int uploadLeads(List<Lead> leads) {
-//
-//		String sql = "INSERT IGNORE INTO leads " + "(name, mobile, creation_date,last_updated_date,status_id) VALUES (?, ?, ?,?,(SELECT id from status where name = 'new'))";
-//
-//		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
-//
-//			@Override
-//			public void setValues(PreparedStatement ps, int i) throws SQLException {
-//				Lead lead = leads.get(i);
-//				ps.setString(1, lead.getName());
-//				ps.setString(2, lead.getMobile());
-//				ps.setTimestamp(3, new Timestamp(new java.util.Date().getTime()));
-//				ps.setTimestamp(4, new Timestamp(new java.util.Date().getTime()));
-//				
-//			}
-//
-//			@Override
-//			public int getBatchSize() {
-//				return leads.size();
-//			}
-//		});
-//		return leads.size();
-//	}
+	    for (int j = 0; j < company.size(); j += batchSize) {
+
+	        final List<Company> batchList = company.subList(j, j + batchSize > company.size() ? company.size() : j + batchSize);
+            
+	       jdbcTemplate.batchUpdate(sql,
+	            new BatchPreparedStatementSetter() {
+	                @Override
+	                public void setValues(PreparedStatement ps, int i)
+	                        throws SQLException {
+	                	Company company = batchList.get(i);
+	                	ps.setString(1, company.getName());
+	    				ps.setTimestamp(2, new Timestamp(new java.util.Date().getTime()));
+	    				
+	                }
+
+	                @Override
+	    			public int getBatchSize() {
+	    				return batchList.size();
+	    			}
+	            });
+	        
+
+	    }
+	    return company.size();
+	}
 	@Transactional()
 	@Override
 	public int uploadLeads(List<Lead> leads) {
 	    final int batchSize = 5000;
-	    int size = 0;
 	    String sql = "INSERT IGNORE INTO leads " + "(name, mobile, creation_date,last_updated_date,status_id) VALUES (?, ?, ?,?,(SELECT id from status where name = 'new'))";
 	    
 
@@ -97,4 +104,6 @@ public class ExcelDaoImp implements ExcelDao {
 		}
 		return false;
 	}
+
+	
 }

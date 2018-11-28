@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ExcelService {
+	public int uploadCompany(List<Company> company);
 	public int uploadLeads(List<Lead> list);
 	public String getFileCheckSum(MessageDigest digest,MultipartFile file);
 	public boolean sheetExist(String file_hash);

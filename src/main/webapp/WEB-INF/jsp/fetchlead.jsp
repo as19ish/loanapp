@@ -158,7 +158,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                               
+                                               <c:if test="${lead != null }">
                                                     <tr >
                                                        
                                                         <td>${lead.name}</td>
@@ -172,8 +172,12 @@
                                                         </td>
                                                         
                                                     </tr>
-                                               
-                                                
+                                              </c:if> 
+                                               <c:if test="${lead == null }">
+                                                <tr>
+												    <td colspan="3" style="text-align: center;">No new lead found</td>
+												  </tr>
+												</c:if>   
                                             </tbody>
                                             
                                         </table>
