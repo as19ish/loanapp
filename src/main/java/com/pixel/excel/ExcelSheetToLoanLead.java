@@ -15,6 +15,8 @@ import com.poiji.exception.PoijiExcelType;
 @Component("sheetToLoanLead")
 public class ExcelSheetToLoanLead implements ExcelSheetToLead {
 	
+	private static final String REASON_NULL_NAME = "Name is empty";
+	private static final String REASON_NAME_LENGTH_EXCEEDS = "Lenght of name is exceeds";
 	private static final String REASON_NULL_MOBILE = "Mobile number is empty";
 	private static final String REASON_INVALID_MOBILE = "Mobile No Not Valid";
 	private static final String REASON_DUPLICATE_MOBILE = "Mobile number is duplicate in sheet";
@@ -32,6 +34,15 @@ public class ExcelSheetToLoanLead implements ExcelSheetToLead {
 		List<RejectedLeadRow> rejectedLeads = new ArrayList<RejectedLeadRow>();
 		
 		for(LoanLeadExcelRow row : rowList){
+			
+			if(row.getName() == null || row.getName().isEmpty()) {
+				rejectedLeads.add(new RejectedLeadRow(String.valueOf(row.getRowIndex()), REASON_NULL_NAME));
+				continue;
+			}
+			if(row.getName().length()>100) {
+				rejectedLeads.add(new RejectedLeadRow(String.valueOf(row.getRowIndex()), REASON_NAME_LENGTH_EXCEEDS));
+				continue;
+			}
 			if(row.getMobile() == null || row.getMobile().isEmpty()){
 				rejectedLeads.add(new RejectedLeadRow(String.valueOf(row.getRowIndex()), REASON_NULL_MOBILE));
 				continue;

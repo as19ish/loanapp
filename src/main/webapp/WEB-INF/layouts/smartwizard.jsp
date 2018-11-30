@@ -208,9 +208,9 @@
                                  <!--/span-->
                                  <div class="col-md-6">
                                      <div class="form-group">
-                                         <label class="control-label col-md-6">Loan Company Name</label>
+                                         <label class="control-label col-md-6">Bank Name</label>
                                          <div class="col-md-9">
-                                             <input type="text" class="form-control" name="company" placeholder="ex: google" data-msg="Please fill Loan Company" required >
+                                             <input type="text" class="form-control" name="company" placeholder="ex: Punjab National Bank" data-msg="Please fill Bank Name" required >
                                             
                                          </div>
                                      </div>
@@ -222,18 +222,18 @@
                                      <div class="form-group">
                                          <label class="control-label col-md-6">Loan Tenure</label>
                                          <div class="col-md-9">
-                                             <input type="text" class="form-control" name="tenure" placeholder="ex: 12" data-rule-digits="true" data-msg-digits="Please Enter Value In Month" data-rule-maxlength="4" data-msg-maxlength="Enter valid Months" data-msg="Please fill loan tenure" required >
-                                             <small  class="form-text text-muted">In months</small>
+                                             <input type="text" class="form-control" name="tenure" placeholder="ex: 12" data-rule-digits="true" data-msg-digits="Please Enter Value In Years" data-rule-maxlength="2" data-msg-maxlength="Enter valid Months" data-msg="Please fill loan tenure" required >
+                                             <small  class="form-text text-muted">In Years</small>
                                          </div>
                                      </div>
                                  </div>
                                  <!--/span-->
                                  <div class="col-md-6">
                                      <div class="form-group">
-                                         <label class="control-label col-md-6">Loan Repayment</label>
+                                         <label class="control-label col-md-6">Total EMI Paid</label>
                                          <div class="col-md-9">
                                              <input type="text" class="form-control" name="repayment" placeholder="ex: 5" data-rule-digits="true" data-msg-digits="Please Enter Value In Month" data-rule-maxlength="4" data-msg-maxlength="Enter valid Months" data-msg="Please fill this field" required >
-                                             <small  class="form-text text-muted">In months</small>
+                                             <small  class="form-text text-muted">In Years</small>
                                          </div>
                                      </div>
                                  </div>
@@ -355,8 +355,7 @@
 
                 </div>
                <div id="step-5" class="">
-                    <h2>Existing Credit Card Details</h2>
-                    
+                                        
                     <div id="form-step-4" role="form" data-toggle="validator">
                         <form id="next_call_form">
                                <div class="row">

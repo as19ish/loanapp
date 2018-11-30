@@ -217,8 +217,22 @@
 	                    { "data": "lead_id", "name" : "lead_id", "title" : "LeadID"  },
 	                    { "data": "name", "name" : "name" , "title" : "Name"},
 	                    { "data": "mobile", "name" : "mobile" , "title" : "Mobile"},
-	                    { "data": "next_call", "name" : "next_call" , "title" : "Next Call DateTime"},
-	                    { "data": "last_updated_date", "name" : "last_updated_date" , "title" : "Last Updated Date"},
+	                    { 
+	                    	"data": "next_call",
+	                    	"name" : "next_call" ,
+	                    	"title" : "Next Call DateTime",
+                    		"render": function (date, type, full, meta) {
+  	                    	      return moment.utc(date).local().format('MMM DD,YYYY h:mm:ss A');
+                            }	
+	                    },
+	                    { 
+	                    	"data": "last_updated_date",
+	                    	"name" : "last_updated_date" ,
+	                    	"title" : "Last Updated Date",
+                    		"render": function (date, type, full, meta) {
+  	                    	      return moment.utc(date).local().format('MMM DD,YYYY h:mm:ss A');
+                            }	
+	                    },
 	                    <c:if test="${AppUtil.hasRole('admin')}" >
 	                    { "data": "employee_name", "name" : "employee_name" , "title" : "Employee Name"},
 	                    </c:if>

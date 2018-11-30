@@ -152,7 +152,7 @@
                                 
                                 <h4>Next Call Date:</h4>
                                 <ul class="list-unstyled">
-                                    <li> <fmt:formatDate value="${lead.next_call}" pattern="E yyyy.MM.dd 'at' hh:mm:ss a " /></li>
+                                    <li id="next_call" >${lead.next_call}</li>
                                     
                                 </ul>
                             </div>
@@ -321,9 +321,10 @@
     $(document).ready(function(){
     	 $("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight")}, 1000);
     	 $('.date').each(function(i, obj) {
-    		    $(obj).html(moment($(obj).html()).fromNow(true));
+    		    $(obj).html(moment.utc($(obj).html()).local().fromNow(true));
     		   
     		});
+    	 $('#next_call').html(moment.utc($('#next_call').html()).local().format('MMM DD,YYYY h:mm:ss A'));
     }); 
 		 $("#send").click(function(e){
              e.preventDefault();

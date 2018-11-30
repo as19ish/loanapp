@@ -8,15 +8,12 @@ public class LoanLeadExcelRow {
 	@ExcelRow
 	private int rowIndex;
 	
-	@ExcelCellName("Name")
+	@ExcelCellName("Customer Name")
 	private String name;
 	
 	@ExcelCellName("Mobile No")
 	private String mobile;
 	
-	@ExcelCellName("Official Email id")
-	private String email;
-
 	public int getRowIndex() {
 		return rowIndex;
 	}
@@ -41,11 +38,5 @@ public class LoanLeadExcelRow {
 		this.mobile = mobile;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	
 }

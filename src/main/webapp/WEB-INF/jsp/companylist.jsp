@@ -127,6 +127,7 @@
 										                    <th>ID</th>
 										                    <th>Name</th>
 										                    <th>Creation Date</th>
+										                    <th>Action</th>
 										                    
 										                </tr>
 										            </thead>
@@ -189,7 +190,8 @@
 		
 		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 		<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
-	
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" type="text/javascript"></script>
+	    
 		
 
 
@@ -209,12 +211,75 @@
 	        "columns": [
 	                    { "data": "id", "name" : "id", "title" : "ID"  },
 	                    { "data": "name", "name" : "name" , "title" : "Name"},
-	                    { "data": "creation_date", "name" : "creation_date" , "title" : "Creation Date"},
-	                                     
+	                    { 
+	                    	"data": "creation_date", 
+	                    	"name" : "creation_date" , 
+	                    	"title" : "Creation Date",
+	                    	"render": function (date, type, full, meta) {
+		                    	 return moment.utc(date).local().format('MMM DD,YYYY h:mm:ss A');
+	                          }
+	                    }, 
+	                    {  
+	                    	"data": "id",
+	                        "searchable": false,
+	                        "sortable": false,
+	                        "render": function (id, type, full, meta) {
+	                                                  return '<span  data-id='+id+' style="cursor: pointer"  ><i class="fa fa-trash"></i></span>';
+	                                              } 
+	                      },
 	                ]   
 	        
 		});
-
+        
+		toastr.options = {
+				  "closeButton": false,
+				  "debug": false,
+				  "newestOnTop": false,
+				  "progressBar": false,
+				  "positionClass": "toast-top-right",
+				  "preventDuplicates": false,
+				  "onclick": null,
+				  "showDuration": "300",
+				  "hideDuration": "1000",
+				  "timeOut": "5000",
+				  "extendedTimeOut": "1000",
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut"
+				}
+		var table = $('#companyTable').dataTable();
+		$('#companyTable tbody').on( 'click', 'span', function () {
+			console.log('ses');
+			var target_row = $(this).closest("tr").get(0);
+			var aPos = table.fnGetPosition(target_row);   
+			if(confirm('Are You Sure ? You want to delete Company ')){
+				 var promise =  new Promise((resolve, reject) => {
+				      $.getJSON('company/delete/'+this.getAttribute("data-id"))
+				        .done(resolve)
+				        .fail(reject);
+				      });
+				  promise.then(
+						    function(status) {
+						    	
+						    	if (status == true){						  		  
+						  		  toastr.success('Successfully Deleted!! '); 
+						  		  document.getElementById("companyTable").deleteRow(aPos+1);
+						  		  table.row($(this).parents('tr')).remove().draw( false );
+							  	}else{
+							  		  toastr.warning('Something went wrong!! ');
+							    }
+						    },
+						    function(reason) {
+						    	toastr.error('Something went wrong!! ');
+						    }
+						);
+				
+			}
+			  
+			   
+		} );
+		
 				
 		 
 		</script>

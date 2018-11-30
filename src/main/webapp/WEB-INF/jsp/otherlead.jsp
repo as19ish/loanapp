@@ -214,8 +214,22 @@
 	                    { "data": "lead_id", "name" : "LeadID", "title" : "LeadID"  },
 	                    { "data": "name", "name" : "Name" , "title" : "Name"},
 	                    { "data": "mobile", "name" : "Mobile" , "title" : "Mobile"},
-	                    { "data": "creation_date", "name" : "CreationDate" , "title" : "CreationDate"},
-	                    { "data": "last_updated_date", "name" : "LastUpdatedDate" , "title" : "LastUpdatedDate"},
+	                    { 
+	                    	"data": "creation_date",
+	                    	"name" : "CreationDate" ,
+	                    	"title" : "CreationDate",
+                    		"render": function (date, type, full, meta) {
+  	                    	      return moment.utc(date).local().format('MMM DD,YYYY h:mm:ss A');
+                            }	
+	                    },
+	                    { 
+	                    	"data": "last_updated_date",
+	                    	"name" : "LastUpdatedDate" ,
+	                    	"title" : "LastUpdatedDate",
+                    		"render": function (date, type, full, meta) {
+  	                    	      return moment.utc(date).local().format('MMM DD,YYYY h:mm:ss A');
+                            }	
+	                    },
 	                    { "data": "status", "name" : "Status" , "title" : "Status"},
 	                    <c:if test="${AppUtil.hasRole('admin')}" >
 	                    { "data": "employee_name", "name" : "employee_name" , "title" : "Employee Name"},

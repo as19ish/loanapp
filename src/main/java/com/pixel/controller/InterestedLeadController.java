@@ -57,32 +57,25 @@ public class InterestedLeadController {
 		String baseQuery;
 		DataTableRequest<Lead> dataTableInRQ = new DataTableRequest<Lead>(request);
 		PaginationCriteria pagination = dataTableInRQ.getPaginationRequest();
-		
 		if(AppUtil.hasRole("admin")) {
 			 baseQuery = "SELECT leads.lead_id,leads.name,leads.mobile,leads.last_updated_date,leads.creation_date,employee.name as employee_name,status.name as status ,leads.next_call , (SELECT COUNT(1) FROM leads where status_id = (select id from status where name = 'interested')) as total_records FROM leads INNER JOIN status ON leads.status_id = status.id INNER JOIN employee on leads.employee_id = employee.employee_id where status.name = 'interested'";
 		}else {
 			 baseQuery = "SELECT leads.lead_id,leads.name,leads.mobile,leads.last_updated_date,leads.creation_date,employee.name as employee_name,status.name as status ,leads.next_call , (SELECT COUNT(1) FROM leads where status_id = (select id from status where name = 'interested' and employee_id ="+AppUtil.getEmployeeId()+")) as total_records FROM leads INNER JOIN status ON leads.status_id = status.id INNER JOIN employee on leads.employee_id = employee.employee_id where status.name = 'interested' and leads.employee_id = "+AppUtil.getEmployeeId();
-			}
-		
+		}
 		String paginatedQuery = AppUtil.buildPaginatedQuery(baseQuery, pagination);
-			System.out.println(paginatedQuery);
 		Query query = entityManager.createNativeQuery(paginatedQuery, leadsModelWithEmployee.class);
-		
 		@SuppressWarnings("unchecked")
 		List<leadsModelWithEmployee> userList = query.getResultList();
-		
 		DataTableResults<leadsModelWithEmployee> dataTableResult = new DataTableResults<leadsModelWithEmployee>();
 		dataTableResult.setDraw(dataTableInRQ.getDraw());
 		dataTableResult.setListOfDataObjects(userList);
 		if (!AppUtil.isObjectEmpty(userList)) {
-			dataTableResult.setRecordsTotal(userList.get(0).getTotalRecords()
-					.toString());
-			if (dataTableInRQ.getPaginationRequest().isFilterByEmpty()) {
-				dataTableResult.setRecordsFiltered(userList.get(0).getTotalRecords()
-						.toString());
-			} else {
-				dataTableResult.setRecordsFiltered(Integer.toString(userList.size()));
-			}
+		dataTableResult.setRecordsTotal(userList.get(0).getTotalRecords().toString());
+		if (dataTableInRQ.getPaginationRequest().isFilterByEmpty()) {
+			dataTableResult.setRecordsFiltered(userList.get(0).getTotalRecords().toString());
+		} else {
+			dataTableResult.setRecordsFiltered(Integer.toString(userList.size()));
+		}
 		}
 		return new Gson().toJson(dataTableResult);
 	}

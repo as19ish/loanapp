@@ -10,7 +10,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.pixel.bean.Employee;
@@ -25,10 +24,8 @@ public class AdminDaoImp implements AdminDao {
 	public boolean addEmployee(Employee employee) {
 		boolean isAdded = false;
 		String query = "INSERT INTO employee (name ,email,mobile,password,date,status,type)" + " VALUES (?, ?, ?, ?,?,?,?)";
-		// define query arguments
 		Object[] params = new Object[] { employee.getName(), employee.getEmail(), employee.getMobile(),
 				employee.getPassword(), employee.getDate(), employee.getStatus(),employee.getType() };
-		// define SQL types of the arguments
 		int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP,
 				Types.VARCHAR,Types.VARCHAR };
 		int row = jdbcTemplate.update(query, params, types);

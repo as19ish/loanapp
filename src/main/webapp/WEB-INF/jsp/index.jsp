@@ -212,8 +212,24 @@
 	                    { "data": "lead_id", "name" : "LeadID", "title" : "LeadID"  },
 	                    { "data": "name", "name" : "Name" , "title" : "Name"},
 	                    { "data": "mobile", "name" : "Mobile" , "title" : "Mobile"},
-	                    { "data": "creation_date", "name" : "CreationDate" , "title" : "CreationDate"},
-	                    { "data": "last_updated_date", "name" : "LastUpdatedDate" , "title" : "LastUpdatedDate"},
+	                    { "data": "creation_date", 
+	                      "name" : "CreationDate" ,
+	                      "title" : "CreationDate",
+	                      "render": function (date, type, full, meta) {
+	                    	  
+                              return moment.utc(date).local().format('MMM DD,YYYY h:mm:ss A');
+                          }
+	                    	  
+	                    },
+	                    { "data": "last_updated_date",
+	                      "name" : "LastUpdatedDate" ,
+	                      "title" : "LastUpdatedDate",
+	                      "render": function (date, type, full, meta) {
+	                    	  
+	                    	  return moment.utc(date).local().format('MMM DD,YYYY h:mm:ss A');
+                          }
+	                      
+	                       },
 	                    { "data": "status", "name" : "Status" , "title" : "Status"},
 	                    { "data": "lead_id",
 	                        "searchable": false,
@@ -274,34 +290,7 @@
 			  
 			   
 		} );
-		function deleteLead(id){
-			console.log(this);
-			if(confirm('Are You Sure ? You want to delete Lead ')){
-				 var promise =  new Promise((resolve, reject) => {
-				      $.getJSON('leads/delete/'+id)
-				        .done(resolve)
-				        .fail(reject);
-				      });
-				  promise.then(
-						    function(status) {
-						    	
-						    	if (status == true){
-						  		  
-						  		  toastr.success('Successfully Deleted!! '); 
-						  		
-						  		table.row($(this).parents('tr')).remove().draw( false );
-						  	  }else{
-						  		  toastr.warning('Something went wrong!! ');
-						  	  }
-						    },
-						    function(reason) {
-						    	toastr.error('Something went wrong!! ');
-						    }
-						);
-				
-			}
-			
-		}
+		
 		 
 		</script>
 	</body>

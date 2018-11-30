@@ -195,7 +195,9 @@ em{
 					                                         <label class="control-label col-md-6"></label>
 					                                         <div class="col-md-12">
 					                                             <input type="file" class="upload-input" id="uploadFile" name="file">
+					                                             
 					                                         </div>
+					                                         
 					                                     </div>
 					                                 </div>
 					                           </div>
@@ -305,6 +307,9 @@ em{
 				 },
 		});
 	 $('#b-submit').click(function(){
+		 if(!confirm('Before upload please insure that sheet are in proper format (main column names are "Customer Name"  and "Mobile No")')){
+			 return false;
+		 }
 		 if(!validator.form()){
 			 return false;
 		 }
